@@ -168,6 +168,8 @@ return [
          */
 
         Mews\Captcha\CaptchaServiceProvider::class,//验证码
+        GeniusTS\Roles\RolesServiceProvider::class,//权限包
+
 
         /*
          * Application Service Providers...
