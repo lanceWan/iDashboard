@@ -19,7 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin'],function ($router)
+Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth']],function ($router)
 {
 	$router->get('/dash','DashBoardController@index');
+	$router->get('/i18n', 'DashBoardController@dataTableI18n');
+	// 权限
+	require(__DIR__ . '/admin/permission.php');
 });
