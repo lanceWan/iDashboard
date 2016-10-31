@@ -26,9 +26,6 @@
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
             </a>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa fa-wrench"></i>
-            </a>
             <a class="close-link">
                 <i class="fa fa-times"></i>
             </a>
@@ -39,13 +36,13 @@
 	          <table class="table table-striped table-bordered table-hover dataTablesAjax" >
 		          <thead>
 			          <tr>
-			            <th>#ID</th>
-			            <th>name</th>
-			            <th>Platform(s)</th>
-			            <th>Engine version</th>
-			            <th>CSS grade</th>
-			            <th>CSS grade</th>
-			            <th>CSS grade</th>
+			            <th>{{trans('admin/permission.model.id')}}</th>
+			            <th>{{trans('admin/permission.model.name')}}</th>
+			            <th>{{trans('admin/permission.model.slug')}}</th>
+			            <th>{{trans('admin/permission.model.description')}}</th>
+			            <th>{{trans('admin/permission.model.created_at')}}</th>
+			            <th>{{trans('admin/permission.model.updated_at')}}</th>
+			            <th>{{trans('admin/action.title')}}</th>
 			          </tr>
 		          </thead>
 		          <tbody>

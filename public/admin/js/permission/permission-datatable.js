@@ -5,6 +5,10 @@ var TableDatatablesAjax = function() {
 			"processing": true,
       "serverSide": true,
       "searching" : true,
+      "searchDelay": 800,
+      "search": {
+        "regex": true
+      },
       "ajax": {
         'url' : '/admin/permission/ajaxIndex',
       },
@@ -44,7 +48,7 @@ var TableDatatablesAjax = function() {
         { 
           "data": "description",
           "name": "description",
-          "orderable" : true,
+          "orderable" : false,
         },
         { 
         	"data": "created_at",
@@ -57,8 +61,8 @@ var TableDatatablesAjax = function() {
         	"orderable" : true,
         },
         { 
-          "data": "name",
-          "name": "name",
+          "data": "actionButton",
+          "name": "actionButton",
           "type": "html",
           "orderable" : false,
         },
@@ -78,4 +82,6 @@ var TableDatatablesAjax = function() {
 		init : datatableAjax
 	}
 }();
-TableDatatablesAjax.init();
+$(function () {
+  TableDatatablesAjax.init();
+});

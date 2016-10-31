@@ -3,8 +3,15 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Service\Admin\PermissionService;
 class PermissionController extends Controller
 {
+    private $permission;
+
+    function __construct(PermissionService $permission)
+    {
+        $this->permission = $permission;
+    }
     /**
      * 权限列表
      * @author 晚黎
@@ -23,22 +30,8 @@ class PermissionController extends Controller
      */
     public function ajaxIndex()
     {
-        $draw = request('draw',1);
-        $permissions = [];
-        for ($i=0; $i < 10; $i++) { 
-            $permissions[$i]['id'] = 'zhang'.rand(1,10);
-            $permissions[$i]['name'] = 'li'.rand(1,10);
-            $permissions[$i]['slug'] = 'wang'.rand(1,10);
-            $permissions[$i]['description'] = 'zhao'.rand(1,10);
-            $permissions[$i]['created_at'] = rand(1,10);
-            $permissions[$i]['updated_at'] = rand(1,10);
-        }
-        return response()->json([
-            'draw' => $draw,
-            'recordsTotal' => 10,
-            'recordsFiltered' => 10,
-            'data' => $permissions,
-        ]);
+        $responseData = $this->permission->ajaxIndex();
+        return response()->json($responseData);
     }
 
     /**
