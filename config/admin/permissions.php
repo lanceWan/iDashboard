@@ -1,9 +1,9 @@
 <?php
 return [
 	'permission' => [
-		'list' 		=> 'admin.permissions.list',
-		'create' 	=> 'admin.permissions.create',
-		'delete' 	=> 'admin.permissions.delete',
-		'edit' 		=> 'admin.permissions.edit',
+		'list' 		=> 'admin.permission.list',
+		'create' 	=> 'admin.permission.create',
+		'destroy' 	=> 'admin.permission.destroy',
+		'edit' 		=> 'admin.permission.edit',
 	]
 ];

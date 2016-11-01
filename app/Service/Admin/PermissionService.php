@@ -6,9 +6,8 @@ use App\Repositories\Eloquent\PermissionRepositoryEloquent;
 */
 class PermissionService
 {
-	private $permission;
 
-	private $action = 'permission';
+	private $permission;
 
 	function __construct(PermissionRepositoryEloquent $permission)
 	{
@@ -37,7 +36,7 @@ class PermissionService
 
 		if ($result['permissions']) {
 			foreach ($result['permissions'] as $v) {
-				$v['actionButton'] = '<a href="#" class="btn btn-xs btn-outline btn-info tooltips" data-toggle="tooltip" data-original-title="top....."  data-placement="top"><i class="fa fa-search"></i></a>';
+				$v->actionButton = $v->getActionButtonAttribute();
 				$permissions[] = $v;
 			}
 		}

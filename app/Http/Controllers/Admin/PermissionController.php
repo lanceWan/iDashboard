@@ -35,13 +35,14 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 添加权限视图
+     * @author 晚黎
+     * @date   2016-11-01T16:47:26+0800
+     * @return [type]                   [description]
      */
     public function create()
     {
-        //
+        return view('admin.permission.create');
     }
 
     /**
@@ -52,7 +53,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
-
 use Illuminate\Database\Seeder;
-use GeniusTS\Roles\Models\Permission;
+use App\Models\Permission;
 class PermissionsTableSeeder extends Seeder
 {
     /**
@@ -141,7 +140,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除权限',
-            'slug' => 'admin.permission.delete',
+            'slug' => 'admin.permission.destroy',
             'description' => '删除权限'
         ]);
         /**

@@ -11,9 +11,12 @@
             <a href="{{url('admin/dash')}}">{!!trans('admin/breadcrumb.home')!!}</a>
         </li>
         <li class="active">
-            <strong>{!!trans('admin/breadcrumb.permission')!!}</strong>
+            <strong>{!!trans('admin/breadcrumb.permission.list')!!}</strong>
         </li>
     </ol>
+  </div>
+  <div class="col-lg-2 text-center m-t-lg">
+    <a href="{{url('admin/permission/create')}}" class="btn btn-info">{!!trans('admin/permission.action.create')!!}</a>
   </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">

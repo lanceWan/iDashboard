@@ -1,15 +1,18 @@
 <?php
-
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-
+use App\Traits\ActionButtonAttributeTrait;
+use GeniusTS\Roles\Models\Permission as Model;
 class Permission extends Model implements Transformable
 {
-    use TransformableTrait;
+    use TransformableTrait,ActionButtonAttributeTrait;
 
-    protected $fillable = [];
+    private $action = 'permission';
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
 
 }
