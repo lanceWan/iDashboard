@@ -13,4 +13,13 @@ class Role extends Model
         parent::__construct($attributes);
     }
 
+    public function setLevelAttribute($value)
+    {
+    	if ($value && is_numeric($value)) {
+	        $this->attributes['level'] = intval($value);
+    	}else{
+    		$this->attributes['level'] = 1;
+    	}
+    }
+
 }

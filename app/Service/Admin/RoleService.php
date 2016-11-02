@@ -85,6 +85,8 @@ class RoleService
 	{
 		try {
 			$result = $this->role->createRole($formData);
+			flash_info($result,trans('admin/alert.role.edit_success'),trans('admin/alert.role.edit_error'));
+			return $result;
 		} catch (Exception $e) {
 			// TODO 错误信息发送邮件
 			dd($e);

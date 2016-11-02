@@ -60,7 +60,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $this->role->storeRole($request->all());
-        return rediect('admin/role');
+        return redirect('admin/role');
     }
 
     /**

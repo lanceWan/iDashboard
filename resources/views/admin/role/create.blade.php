@@ -68,7 +68,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.level')}}</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control" name="level" value="{{old('level',1)}}" placeholder="{{trans('admin/role.model.level')}}">
+                <input type="text" class="form-control" name="level" value="{{old('level')}}" placeholder="{{trans('admin/role.model.level')}}">
               </div>
             </div>
             <div class="hr-line-dashed"></div>
