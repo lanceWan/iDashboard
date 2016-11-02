@@ -11,6 +11,8 @@ class PermissionController extends Controller
 
     function __construct(PermissionService $permission)
     {
+        // 自定义权限中间件
+        $this->middleware('check.permission:permission');
         $this->permission = $permission;
     }
     /**
@@ -57,17 +59,6 @@ class PermissionController extends Controller
     {
         $this->permission->storePermission($request->all());
         return redirect('admin/permission');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

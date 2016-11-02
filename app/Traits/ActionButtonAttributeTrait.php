@@ -47,7 +47,7 @@ trait ActionButtonAttributeTrait
 	public function getDestroyActionButton()
 	{
 		if (auth()->user()->can(config('admin.permissions.'.$this->action.'.destroy'))) {
-			return '<a href="javascript:;" onclick="return false" class="btn btn-xs btn-danger tooltips destroy_item" data-original-title="' . trans('admin/action.actionButtion.destroy') . '"  data-placement="top"><i class="fa fa-trash"></i><form action="'.url('admin/'.$this->action.'/'.$this->id).'" method="POST" name="delete_item" style="display:none"><input type="hidden" name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'"></form></a> ';
+			return '<a href="javascript:;" onclick="return false" class="btn btn-xs btn-outline btn-danger tooltips destroy_item" data-original-title="' . trans('admin/action.actionButtion.destroy') . '"  data-placement="top"><i class="fa fa-trash"></i><form action="'.url('admin/'.$this->action.'/'.$this->id).'" method="POST" name="delete_item" style="display:none"><input type="hidden" name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'"></form></a> ';
 		}
 		return '';
 	}

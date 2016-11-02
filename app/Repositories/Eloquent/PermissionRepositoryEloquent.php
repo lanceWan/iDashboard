@@ -19,7 +19,16 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
     {
         return Permission::class;
     }
-
+    /**
+     * 查询权限并分页
+     * @author 晚黎
+     * @date   2016-11-02T15:17:24+0800
+     * @param  [type]                   $start  [起始数目]
+     * @param  [type]                   $length [读取条数]
+     * @param  [type]                   $search [搜索数组数据]
+     * @param  [type]                   $order  [排序数组数据]
+     * @return [type]                           [查询结果集，包含查询的数量及查询的结果对象]
+     */
     public function getPermissionList($start,$length,$search,$order)
     {
         $permission = $this->model;

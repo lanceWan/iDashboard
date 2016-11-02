@@ -1,12 +1,12 @@
 <?php
 namespace App\Models;
-use GeniusTS\Roles\Models\Permission as Model;
 use App\Traits\ActionButtonAttributeTrait;
-class Permission extends Model
+use GeniusTS\Roles\Models\Role as Model;
+class Role extends Model
 {
     use ActionButtonAttributeTrait;
 
-    private $action = 'permission';
+    private $action = 'role';
 
     public function __construct(array $attributes = [])
     {

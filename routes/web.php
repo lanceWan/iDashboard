@@ -25,4 +25,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	$router->get('/i18n', 'DashBoardController@dataTableI18n');
 	// 权限
 	require(__DIR__ . '/admin/permission.php');
+	// 角色
+	require(__DIR__ . '/admin/role.php');
 });

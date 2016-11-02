@@ -62,7 +62,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除菜单',
-            'slug' => 'admin.menu.delete',
+            'slug' => 'admin.menu.destroy',
             'description' => '删除菜单'
         ]);
         /**
@@ -97,7 +97,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除角色',
-            'slug' => 'admin.role.delete',
+            'slug' => 'admin.role.destroy',
             'description' => '删除角色'
         ]);
         /**
@@ -175,7 +175,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除用户',
-            'slug' => 'admin.user.delete',
+            'slug' => 'admin.user.destroy',
             'description' => '删除用户'
         ]);
         /**
