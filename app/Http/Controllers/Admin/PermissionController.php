@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Service\Admin\PermissionService;
+use App\Http\Requests\PermissionRequest;
 class PermissionController extends Controller
 {
     private $permission;
@@ -46,14 +47,16 @@ class PermissionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 添加权限
+     * @author 晚黎
+     * @date   2016-11-02T10:30:30+0800
+     * @param  PermissionRequest        $request [description]
+     * @return [type]                            [description]
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        
+        $this->permission->storePermission($request->all());
+        return redirect('admin/permission');
     }
 
     /**
@@ -68,26 +71,30 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改权限视图
+     * @author 晚黎
+     * @date   2016-11-02T11:42:41+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
      */
     public function edit($id)
     {
-        //
+        $permission = $this->permission->editView($id);
+        return view('admin.permission.edit')->with(compact('permission'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改权限
+     * @author 晚黎
+     * @date   2016-11-02T11:58:45+0800
+     * @param  PermissionRequest        $request [description]
+     * @param  [type]                   $id      [description]
+     * @return [type]                            [description]
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        //
+        $this->permission->updatePermission($request->all(),$id);
+        return redirect('admin/permission');
     }
 
     /**
@@ -98,6 +105,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->permission->destroyPermission($id);
+        return redirect('admin/permission');
     }
 }

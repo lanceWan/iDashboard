@@ -4,5 +4,6 @@ return [
 	'permission' => [
 		'list' => '<i class="fa fa-plane"></i> 权限列表',
 		'create' => '<i class="fa fa-plus"></i> 添加权限',
+		'edit' => '<i class="fa fa-pencil"></i> 修改权限',
 	],
 ];

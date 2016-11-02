@@ -1,10 +1,11 @@
 <?php
 return [
-	'title' => '权限管理',
-	'desc' => '权限列表',
-	'create' => '添加权限',
-	'model' => [
-		'id' 			=> '#ID',
+	'title' 	=> '权限管理',
+	'desc' 		=> '权限列表',
+	'create' 	=> '添加权限',
+	'edit' 		=> '修改权限',
+	'model' 	=> [
+		'id' 			=> 'ID',
 		'name' 			=> '权限名称',
 		'slug' 			=> '权限',
         'description' 	=> '描述',

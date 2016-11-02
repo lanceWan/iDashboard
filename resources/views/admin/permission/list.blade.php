@@ -35,6 +35,7 @@
           </div>
         </div>
         <div class="ibox-content">
+          @include('flash::message')
           <div class="table-responsive">
 	          <table class="table table-striped table-bordered table-hover dataTablesAjax" >
 		          <thead>
@@ -60,5 +61,19 @@
 @endsection
 @section('js')
 <script src="{{asset('vendors/dataTables/datatables.min.js')}}"></script>
+<script src="{{asset('vendors/layer/layer.js')}}"></script>
 <script src="{{asset('admin/js/permission/permission-datatable.js')}}"></script>
+<script type="text/javascript">
+  $(document).on('click','.destroy_item',function() {
+    layer.msg('{{trans('admin/alert.deleteTitle')}}', {
+      time: 0, //不自动关闭
+      btn: ['{{trans('admin/action.actionButtion.destroy')}}', '{{trans('admin/action.actionButtion.no')}}'],
+      icon: 5,
+      yes: function(index){
+        $('form[name="delete_item"]').submit();
+        layer.close(index);
+      }
+    });
+  });
+</script>
 @endsection
