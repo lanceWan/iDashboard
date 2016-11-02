@@ -48,4 +48,17 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 
         return compact('count','roles');
     }
+
+    public function createRole($formData)
+    {
+        $role = $this->model;
+        if ($role->fill($formData)->save()) {
+            // 更新角色权限关系
+            if (isset($formData['permission'])) {
+                $role->permissions()->sync($formData['permission']);
+            }
+            return true;
+        }
+        return false;
+    }
 }

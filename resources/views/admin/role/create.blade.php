@@ -1,5 +1,9 @@
 @extends('layouts.admin')
+@section('css')
+<link href="{{asset('vendors/iCheck/custom.css')}}" rel="stylesheet">
+@endsection
 @section('content')
+@inject('rolePresenter','App\Presenters\Admin\RolePresenter')
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
     <h2>{!!trans('admin/role.title')!!}</h2>
@@ -64,7 +68,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.level')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="level" value="{{old('level')}}" placeholder="{{trans('admin/role.model.level')}}">
+                <input type="number" class="form-control" name="level" value="{{old('level',1)}}" placeholder="{{trans('admin/role.model.level')}}">
               </div>
             </div>
             <div class="hr-line-dashed"></div>
@@ -72,36 +76,17 @@
               <label class="col-sm-2 control-label">{{trans('admin/role.permission')}}</label>
               <div class="col-sm-10">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                              <th class="col-md-1 text-center">{{trans('admin/role.module')}}</th>
-                              <th class="col-md-10 text-center">{{trans('admin/role.permission')}}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                              <td>1</td>
-                              <td>Mark</td>
-                              <td>Otto</td>
-                              <td>@mdo</td>
-                          </tr>
-                          <tr>
-                              <td>2</td>
-                              <td>Jacob</td>
-                              <td>Thornton</td>
-                              <td>@fat</td>
-                          </tr>
-                          <tr>
-                              <td>3</td>
-                              <td>Larry</td>
-                              <td>the Bird</td>
-                              <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                          <th class="col-md-1 text-center">{{trans('admin/role.module')}}</th>
+                          <th class="col-md-10 text-center">{{trans('admin/role.permission')}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {!! $rolePresenter->permissionList($permissions) !!}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -118,4 +103,8 @@
   	</div>
   </div>
 </div>
+@endsection
+@section('js')
+<script type="text/javascript" src="{{asset('vendors/iCheck/icheck.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('admin/js/role/role.js')}}"></script>
 @endsection

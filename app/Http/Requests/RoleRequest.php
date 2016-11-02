@@ -23,10 +23,10 @@ class RoleRequest extends FormRequest
         $rules['name'] = 'required';
         // 添加权限
         if (request()->isMethod('POST')) {
-            $rules['slug'] = 'required|unique:permissions,slug';
+            $rules['slug'] = 'required|unique:roles,slug';
         }else{
             // 修改时 request()->method() 方法返回的是 PUT或PATCH
-            $rules['slug'] = 'required|unique:permissions,slug,'.$this->id;
+            $rules['slug'] = 'required|unique:roles,slug,'.$this->id;
             $rules['id'] = 'numeric|required';
         }
         return $rules;

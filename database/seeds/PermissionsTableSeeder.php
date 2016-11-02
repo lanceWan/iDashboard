@@ -15,22 +15,22 @@ class PermissionsTableSeeder extends Seeder
         /////////////////
         Permission::create([
             'name' => '登录后台权限',
-            'slug' => 'admin.system.login',
+            'slug' => 'system.login',
             'description' => '登录后台权限'
         ]);
         Permission::create([
             'name' => '后台首页',
-            'slug' => 'admin.system.index',
+            'slug' => 'system.index',
             'description' => '后台首页'
         ]);
         Permission::create([
             'name' => '显示日志总览',
-            'slug' => 'admin.logs.all',
+            'slug' => 'logs.all',
             'description' => '显示日志总览'
         ]);
         Permission::create([
             'name' => '显示日志列表',
-            'slug' => 'admin.logs.list',
+            'slug' => 'logs.list',
             'description' => '显示日志列表'
         ]);
         //////////
@@ -38,7 +38,7 @@ class PermissionsTableSeeder extends Seeder
         //////////
         Permission::create([
             'name' => '系统管理',
-            'slug' => 'admin.system.manage',
+            'slug' => 'system.manage',
             'description' => '系统管理'
         ]);
         /**
@@ -46,7 +46,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '显示菜单列表',
-            'slug' => 'admin.menu.list',
+            'slug' => 'menu.list',
             'description' => '显示菜单列表'
         ]);
         /**
@@ -54,7 +54,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '创建菜单',
-            'slug' => 'admin.menu.create',
+            'slug' => 'menu.create',
             'description' => '创建菜单'
         ]);
         /**
@@ -62,7 +62,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除菜单',
-            'slug' => 'admin.menu.destroy',
+            'slug' => 'menu.destroy',
             'description' => '删除菜单'
         ]);
         /**
@@ -70,7 +70,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '修改菜单',
-            'slug' => 'admin.menu.edit',
+            'slug' => 'menu.edit',
             'description' => '修改菜单'
         ]);
         /////////////
@@ -81,7 +81,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '显示角色列表',
-            'slug' => 'admin.role.list',
+            'slug' => 'role.list',
             'description' => '显示角色列表'
         ]);
         /**
@@ -89,7 +89,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '创建角色',
-            'slug' => 'admin.role.create',
+            'slug' => 'role.create',
             'description' => '创建角色'
         ]);
         /**
@@ -97,7 +97,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除角色',
-            'slug' => 'admin.role.destroy',
+            'slug' => 'role.destroy',
             'description' => '删除角色'
         ]);
         /**
@@ -105,7 +105,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '修改角色',
-            'slug' => 'admin.role.edit',
+            'slug' => 'role.edit',
             'description' => '修改角色'
         ]);
         /**
@@ -113,7 +113,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '查看角色权限',
-            'slug' => 'admin.role.show',
+            'slug' => 'role.show',
             'description' => '查看角色权限'
         ]);
         /////////////
@@ -124,7 +124,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '显示权限列表',
-            'slug' => 'admin.permission.list',
+            'slug' => 'permission.list',
             'description' => '显示权限列表'
         ]);
         /**
@@ -132,7 +132,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '创建权限',
-            'slug' => 'admin.permission.create',
+            'slug' => 'permission.create',
             'description' => '创建权限'
         ]);
         /**
@@ -140,7 +140,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除权限',
-            'slug' => 'admin.permission.destroy',
+            'slug' => 'permission.destroy',
             'description' => '删除权限'
         ]);
         /**
@@ -148,7 +148,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '修改权限',
-            'slug' => 'admin.permission.edit',
+            'slug' => 'permission.edit',
             'description' => '修改权限'
         ]);
         /////////////
@@ -159,7 +159,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '显示用户列表',
-            'slug' => 'admin.user.list',
+            'slug' => 'user.list',
             'description' => '显示用户列表'
         ]);
         /**
@@ -167,7 +167,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '创建用户',
-            'slug' => 'admin.user.create',
+            'slug' => 'user.create',
             'description' => '创建用户'
         ]);
         /**
@@ -175,7 +175,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '删除用户',
-            'slug' => 'admin.user.destroy',
+            'slug' => 'user.destroy',
             'description' => '删除用户'
         ]);
         /**
@@ -183,7 +183,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '查看用户信息',
-            'slug' => 'admin.user.show',
+            'slug' => 'user.show',
             'description' => '查看用户信息'
         ]);
         /**
@@ -191,7 +191,7 @@ class PermissionsTableSeeder extends Seeder
          */
         Permission::create([
             'name' => '修改用户密码',
-            'slug' => 'admin.user.reset',
+            'slug' => 'user.reset',
             'description' => '修改用户密码'
         ]);
     }

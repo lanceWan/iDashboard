@@ -47,19 +47,20 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = $this->role->createView();
-        dd($permissions);
         return view('admin.role.create')->with(compact('permissions'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 添加角色
+     * @author 晚黎
+     * @date   2016-11-03
+     * @param  RoleRequest $request [description]
+     * @return [type]               [description]
      */
     public function store(RoleRequest $request)
     {
-        
+        $this->role->storeRole($request->all());
+        return rediect('admin/role');
     }
 
     /**

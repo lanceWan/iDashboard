@@ -77,16 +77,14 @@ class RoleService
 	/**
 	 * 添加权限
 	 * @author 晚黎
-	 * @date   2016-11-02T10:32:18+0800
-	 * @param  [type]                   $formData [表单中所有的数据]
-	 * @return [type]                             [true or false]
+	 * @date   2016-11-03
+	 * @param  [type]     $formData [表单中所有的数据]
+	 * @return [type]               [true or false]
 	 */
 	public function storeRole($formData)
 	{
 		try {
-			$result = $this->role->create($formData);
-			flash_info($result,trans('admin/alert.role.create_success'),trans('admin/alert.role.create_error'));
-			return $result;
+			$result = $this->role->createRole($formData);
 		} catch (Exception $e) {
 			// TODO 错误信息发送邮件
 			dd($e);
