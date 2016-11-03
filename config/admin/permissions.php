@@ -14,4 +14,12 @@ return [
 		'destroy' 	=> 'role.destroy',
 		'show' 		=> 'role.show',
 	],
+	'user' => [
+		'list' 		=> 'user.list',
+		'create' 	=> 'user.create',
+		'edit' 		=> 'user.edit',
+		'destroy' 	=> 'user.destroy',
+		'show' 		=> 'user.show',
+		'reset' 	=> 'user.reset',
+	],
 ];

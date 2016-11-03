@@ -15,7 +15,7 @@
             <a href="{{url('admin/role')}}">{!!trans('admin/breadcrumb.role.list')!!}</a>
         </li>
         <li class="active">
-            <strong>{!!trans('admin/breadcrumb.role.create')!!}</strong>
+            <strong>{!!trans('admin/breadcrumb.role.edit')!!}</strong>
         </li>
     </ol>
   </div>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>{!!trans('admin/role.create')!!}</h5>
+          <h5>{!!trans('admin/role.edit')!!}</h5>
           <div class="ibox-tools">
               <a class="collapse-link">
                   <i class="fa fa-chevron-up"></i>
@@ -36,12 +36,14 @@
           </div>
         </div>
         <div class="ibox-content">
-          <form method="post" action="{{url('admin/role')}}" class="form-horizontal">
+          <form method="post" action="{{url('admin/role/'.$role->id)}}" class="form-horizontal">
             {{csrf_field()}}
+            {{method_field('PUT')}}
+            <input type="hidden" name="id" value="{{$role->id}}">
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.name')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="{{trans('admin/role.model.name')}}"> 
+                <input type="text" class="form-control" name="name" value="{{old('name',$role->name)}}" placeholder="{{trans('admin/role.model.name')}}"> 
                 @if ($errors->has('name'))
                 <span class="help-block m-b-none text-danger">{{ $errors->first('name') }}</span>
                 @endif
@@ -51,7 +53,7 @@
             <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.slug')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="slug" value="{{old('slug')}}" placeholder="{{trans('admin/role.model.slug')}}"> 
+                <input type="text" class="form-control" name="slug" value="{{old('slug',$role->slug)}}" placeholder="{{trans('admin/role.model.slug')}}"> 
                 @if ($errors->has('slug'))
                 <span class="help-block m-b-none text-danger">{{ $errors->first('slug') }}</span>
                 @endif
@@ -61,14 +63,14 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.description')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="description" value="{{old('description')}}" placeholder="{{trans('admin/role.model.description')}}">
+                <input type="text" class="form-control" name="description" value="{{old('description',$role->description)}}" placeholder="{{trans('admin/role.model.description')}}">
               </div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group">
               <label class="col-sm-2 control-label">{{trans('admin/role.model.level')}}</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="level" value="{{old('level')}}" placeholder="{{trans('admin/role.model.level')}}">
+                <input type="text" class="form-control" name="level" value="{{old('level',$role->level)}}" placeholder="{{trans('admin/role.model.level')}}">
               </div>
             </div>
             <div class="hr-line-dashed"></div>
@@ -84,7 +86,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {!! $rolePresenter->permissionList($permissions) !!}
+                      {!! $rolePresenter->permissionList($permissions,array_column($role->permissions->toArray(),'id')) !!}
                     </tbody>
                   </table>
                 </div>

@@ -14,7 +14,8 @@ class UsersTableSeeder extends Seeder
     	$admin = Role::where('slug','admin')->first();
         $user = Role::where('slug','user')->first();
         factory('App\User', 1)->create([
-        	'name' => 'iwanli',
+        	'name' => '晚黎',
+            'username' => 'iwanli',
         	'email' => '709344897@qq.com',
         	'password' => bcrypt('123456')
         ])->each(function ($u) use ($admin){

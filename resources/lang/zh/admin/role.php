@@ -4,6 +4,7 @@ return [
 	'desc' 		=> '角色列表',
 	'create' 	=> '添加角色',
 	'edit' 		=> '修改角色',
+	'info' 		=> '角色信息',
 	'permission'=> '权限',
 	'module'	=> '模块',
 	'model' 	=> [

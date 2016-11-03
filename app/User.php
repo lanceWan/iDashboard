@@ -1,22 +1,22 @@
 <?php
-
 namespace App;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use GeniusTS\Roles\Traits\HasRoleAndPermission;
 use GeniusTS\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
+use App\Traits\ActionButtonAttributeTrait;
 class User extends Authenticatable implements HasRoleAndPermissionContract
 {
-    use Notifiable,HasRoleAndPermission;
+    use Notifiable,HasRoleAndPermission,ActionButtonAttributeTrait;
 
+    private $action = 'user';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'password'
     ];
 
     /**

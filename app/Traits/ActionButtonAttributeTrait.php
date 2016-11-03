@@ -15,9 +15,9 @@ trait ActionButtonAttributeTrait
 		if (config('admin.global.'.$this->action.'.show')) {
 			if (auth()->user()->can(config('admin.permissions.'.$this->action.'.show'))) {
 				if ($type) {
-					return '<a href="'.url('admin/'.$this->action.'/'.$this->id).'" class="btn btn-xs btn-outline btn-info tooltips" data-toggle="tooltip" data-original-title="' . trans('admin/action.actionButtion.show') . '"  data-placement="top"><i class="fa fa-search"></i></a> ';
+					return '<a href="'.url('admin/'.$this->action.'/'.$this->id).'" class="btn btn-xs btn-outline btn-info tooltips" data-toggle="tooltip" data-original-title="' . trans('admin/action.actionButton.show') . '"  data-placement="top"><i class="fa fa-eye"></i></a> ';
 				}
-				return '<a href="'.url('admin/'.$this->action.'/'.$this->id).'" class="btn btn-xs btn-info tooltips" data-toggle="modal" data-target="#draggable" data-original-title="' . trans('admin/action.actionButtion.show') . '"  data-placement="top"><i class="fa fa-search"></i></a> ';
+				return '<a href="'.url('admin/'.$this->action.'/'.$this->id).'" class="btn btn-xs btn-info tooltips" data-toggle="modal" data-target="#myModal" data-original-title="' . trans('admin/action.actionButton.show') . '"  data-placement="top"><i class="fa fa-eye"></i></a> ';
 			}
 			return '';
 		}
@@ -32,7 +32,7 @@ trait ActionButtonAttributeTrait
 	public function getEditActionButton()
 	{
 		if (auth()->user()->can(config('admin.permissions.'.$this->action.'.edit'))) {
-			return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/edit').'" class="btn btn-xs btn-outline btn-warning tooltips" data-original-title="' . trans('admin/action.actionButtion.edit') . '"  data-placement="top"><i class="fa fa-pencil"></i></a> ';
+			return '<a href="'.url('admin/'.$this->action.'/'.$this->id.'/edit').'" class="btn btn-xs btn-outline btn-warning tooltips" data-original-title="' . trans('admin/action.actionButton.edit') . '"  data-placement="top"><i class="fa fa-edit"></i></a> ';
 		}
 		return '';
 	}
@@ -47,12 +47,12 @@ trait ActionButtonAttributeTrait
 	public function getDestroyActionButton()
 	{
 		if (auth()->user()->can(config('admin.permissions.'.$this->action.'.destroy'))) {
-			return '<a href="javascript:;" onclick="return false" class="btn btn-xs btn-outline btn-danger tooltips destroy_item" data-original-title="' . trans('admin/action.actionButtion.destroy') . '"  data-placement="top"><i class="fa fa-trash"></i><form action="'.url('admin/'.$this->action.'/'.$this->id).'" method="POST" name="delete_item" style="display:none"><input type="hidden" name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'"></form></a> ';
+			return '<a href="javascript:;" onclick="return false" class="btn btn-xs btn-outline btn-danger tooltips destroy_item" data-original-title="' . trans('admin/action.actionButton.destroy') . '"  data-placement="top"><i class="fa fa-trash"></i><form action="'.url('admin/'.$this->action.'/'.$this->id).'" method="POST" name="delete_item" style="display:none"><input type="hidden" name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'"></form></a> ';
 		}
 		return '';
 	}
 	/**
-	 * 修改用户密码
+	 * 重置用户密码
 	 * @author 晚黎
 	 * @date   2016-10-31T18:14:48+0800
 	 * @return [type]
@@ -60,7 +60,7 @@ trait ActionButtonAttributeTrait
 	public function getResetActionButton()
 	{
 		if (auth()->user()->can(config('admin.permissions.'.$this->action.'.reset'))) {
-			return '<a href="'.url('admin/user/'.$this->id.'/reset').'" class="btn btn-xs btn-danger tooltips" data-container="body" data-original-title="' . trans('crud.reset') . '"  data-placement="top"><i class="fa fa-lock"></i></a> ';
+			return '<a href="javascript:;" data-id="'.$this->id.'" class="btn btn-outline btn-xs btn-default tooltips reset_password" data-container="body" data-original-title="' . trans('admin/action.actionButton.reset') . '"  data-placement="top"><i class="fa fa-lock"></i></a> ';
 		}
 		return '';
 	}

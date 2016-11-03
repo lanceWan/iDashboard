@@ -171,6 +171,14 @@ class PermissionsTableSeeder extends Seeder
             'description' => '创建用户'
         ]);
         /**
+         * 修改用户信息
+         */
+        Permission::create([
+            'name' => '修改用户',
+            'slug' => 'user.edit',
+            'description' => '修改用户'
+        ]);
+        /**
          * 删除用户
          */
         Permission::create([

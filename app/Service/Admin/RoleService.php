@@ -45,7 +45,7 @@ class RoleService
 
 		if ($result['roles']) {
 			foreach ($result['roles'] as $v) {
-				$v->actionButton = $v->getActionButtonAttribute();
+				$v->actionButton = $v->getActionButtonAttribute(false);
 				$roles[] = $v;
 			}
 		}
@@ -63,16 +63,9 @@ class RoleService
 	 * @date   2016-11-02T17:25:53+0800
 	 * @return [type]                   [description]
 	 */
-	public function createView()
+	public function getAllPermissionList()
 	{
-		$permissions = $this->permission->all();
-		$array = [];
-		if ($permissions) {
-			foreach ($permissions as $v) {
-				array_set($array, $v->slug, ['id' => $v->id,'name' => $v->name,'desc' => $v->description,'key' => str_random(10)]);
-			}
-		}
-		return $array;
+		return $this->permission->groupPermissionList();
 	}
 	/**
 	 * 添加权限
@@ -85,7 +78,7 @@ class RoleService
 	{
 		try {
 			$result = $this->role->createRole($formData);
-			flash_info($result,trans('admin/alert.role.edit_success'),trans('admin/alert.role.edit_error'));
+			flash_info($result,trans('admin/alert.role.create_success'),trans('admin/alert.role.create_error'));
 			return $result;
 		} catch (Exception $e) {
 			// TODO 错误信息发送邮件
@@ -95,13 +88,13 @@ class RoleService
 	/**
 	 * 根据ID获取权限数据
 	 * @author 晚黎
-	 * @date   2016-11-02T11:44:36+0800
+	 * @date   2016-11-03T09:22:44+0800
 	 * @param  [type]                   $id [权限id]
 	 * @return [type]                       [查询出来的权限对象，查不到数据时跳转404]
 	 */
-	public function editView($id)
+	public function findRoleById($id)
 	{
-		$role =  $this->role->find($id);
+		$role =  $this->role->with(['permissions'])->find($id);
 		if ($role) {
 			return $role;
 		}
@@ -110,10 +103,10 @@ class RoleService
 	/**
 	 * 修改权限
 	 * @author 晚黎
-	 * @date   2016-11-02T12:45:00+0800
+	 * @date   2016-11-03T09:54:21+0800
 	 * @param  [type]                   $attributes [表单数据]
 	 * @param  [type]                   $id         [resource路由传递过来的id]
-	 * @return [type]                               [true or false]
+	 * @return [type]                               [Boolean]
 	 */
 	public function updateRole($attributes,$id)
 	{
@@ -123,6 +116,14 @@ class RoleService
 		}
 		try {
 			$result = $this->role->update($attributes,$id);
+			if ($result) {
+				// 更新角色权限关系
+				if (isset($attributes['permission'])) {
+					$result->permissions()->sync($attributes['permission']);
+				}else{
+					$result->permissions()->sync([]);
+				}
+			}
 			flash_info($result,trans('admin/alert.role.edit_success'),trans('admin/alert.role.edit_error'));
 			return $result;
 		} catch (Exception $e) {
@@ -131,11 +132,11 @@ class RoleService
 		}
 	}
 	/**
-	 * 权限暂不做状态管理，直接删除
+	 * 角色暂不做状态管理，直接删除
 	 * @author 晚黎
-	 * @date   2016-11-02T13:23:45+0800
+	 * @date   2016-11-03T10:01:36+0800
 	 * @param  [type]                   $id [权限id]
-	 * @return [type]                       [true or false]
+	 * @return [type]                       [Boolean]
 	 */
 	public function destroyRole($id)
 	{

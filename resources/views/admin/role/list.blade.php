@@ -58,6 +58,13 @@
   	</div>
   </div>
 </div>
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+          
+    </div>
+  </div>
+</div>
 @endsection
 @section('js')
 <script src="{{asset('vendors/dataTables/datatables.min.js')}}"></script>
@@ -65,12 +72,13 @@
 <script src="{{asset('admin/js/role/role-datatable.js')}}"></script>
 <script type="text/javascript">
   $(document).on('click','.destroy_item',function() {
+    var _item = $(this);
     layer.msg('{{trans('admin/alert.deleteTitle')}}', {
       time: 0, //不自动关闭
-      btn: ['{{trans('admin/action.actionButtion.destroy')}}', '{{trans('admin/action.actionButtion.no')}}'],
+      btn: ['{{trans('admin/action.actionButton.destroy')}}', '{{trans('admin/action.actionButton.no')}}'],
       icon: 5,
       yes: function(index){
-        $('form[name="delete_item"]').submit();
+        _item.children('form').submit();
         layer.close(index);
       }
     });

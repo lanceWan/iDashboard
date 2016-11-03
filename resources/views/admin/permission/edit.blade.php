@@ -72,8 +72,8 @@
             <div class="hr-line-dashed"></div>
             <div class="form-group">
               <div class="col-sm-4 col-sm-offset-2">
-                  <a class="btn btn-white" href="{{url()->previous()}}">{!!trans('admin/action.actionButtion.cancel')!!}</a>
-                  <button class="btn btn-primary" type="submit">{!!trans('admin/action.actionButtion.submit')!!}</button>
+                  <a class="btn btn-white" href="{{url()->previous()}}">{!!trans('admin/action.actionButton.cancel')!!}</a>
+                  <button class="btn btn-primary" type="submit">{!!trans('admin/action.actionButton.submit')!!}</button>
               </div>
             </div>
           </form>

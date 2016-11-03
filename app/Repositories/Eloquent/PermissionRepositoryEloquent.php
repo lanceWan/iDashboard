@@ -48,5 +48,22 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
 
         return compact('count','permissions');
     }
+    /**
+     * 获取所有的权限并按照功能分组
+     * @author 晚黎
+     * @date   2016-11-03T13:20:18+0800
+     * @return [type]                   [description]
+     */
+    public function groupPermissionList()
+    {
+        $permissions = $this->model->all();
+        $array = [];
+        if ($permissions) {
+            foreach ($permissions as $v) {
+                array_set($array, $v->slug, ['id' => $v->id,'name' => $v->name]);
+            }
+        }
+        return $array;
+    }
 
 }

@@ -27,4 +27,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','middleware' => ['auth'
 	require(__DIR__ . '/admin/permission.php');
 	// 角色
 	require(__DIR__ . '/admin/role.php');
+	// 用户
+	require(__DIR__ . '/admin/user.php');
 });

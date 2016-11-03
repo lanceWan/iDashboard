@@ -10,16 +10,16 @@ var TableDatatablesAjax = function() {
         "regex": true
       },
       "ajax": {
-        'url' : '/admin/role/ajaxIndex',
+        'url' : '/admin/user/ajaxIndex',
       },
       "pagingType": "full_numbers",
       "orderCellsTop": true,
       "dom" : '<"html5buttons"B>lTfgitp',
       "buttons": [
-        {extend: 'copy',title: 'role'},
-        {extend: 'csv',title: 'role'},
-        {extend: 'excel', title: 'role'},
-        {extend: 'pdf', title: 'role'},
+        {extend: 'copy',title: 'user'},
+        {extend: 'csv',title: 'user'},
+        {extend: 'excel', title: 'user'},
+        {extend: 'pdf', title: 'user'},
         {extend: 'print',
          customize: function (win){
             $(win.document.body).addClass('white-bg');
@@ -41,14 +41,9 @@ var TableDatatablesAjax = function() {
         	"orderable" : false,
         },
         {
-        	"data": "slug",
-        	"name": "slug",
+        	"data": "username",
+        	"name": "username",
         	"orderable" : false,
-        },
-        { 
-          "data": "description",
-          "name": "description",
-          "orderable" : false,
         },
         { 
         	"data": "created_at",
@@ -76,10 +71,6 @@ var TableDatatablesAjax = function() {
       "language": {
         url: '/admin/i18n'
       }
-    });
-    // 关闭modal清空内容
-    $(".modal").on("hidden.bs.modal",function(e){
-       $(this).removeData("bs.modal");
     });
   };
 	return {

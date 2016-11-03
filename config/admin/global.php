@@ -1,7 +1,9 @@
 <?php
 return [
 	// 自定义登录字段
-	'username' => 'name',
+	'username' 	=> 'username',
+	// 重置用户密码
+	'reset' 	=> '123456',
 	// 分页
 	'list' => [
 		'start'=> 0,
@@ -27,6 +29,10 @@ return [
 		'show' => false,
 	],
 	'role' => [
+		// 控制是否显示查看按钮
+		'show' => true,
+	],
+	'user' => [
 		// 控制是否显示查看按钮
 		'show' => true,
 	],
