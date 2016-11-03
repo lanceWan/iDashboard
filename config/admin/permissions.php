@@ -22,4 +22,10 @@ return [
 		'show' 		=> 'user.show',
 		'reset' 	=> 'user.reset',
 	],
+	'menu' => [
+		'list' 		=> 'user.list',
+		'create' 	=> 'user.create',
+		'edit' 		=> 'user.edit',
+		'destroy' 	=> 'user.destroy',
+	],
 ];
