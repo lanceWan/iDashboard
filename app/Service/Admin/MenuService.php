@@ -195,7 +195,11 @@ class MenuService
 					foreach ($v['children'] as $key => $child) {
 						$chidlSort = $childCount - $key;
 						if (!isset($menus[$k]['child'][$key])) {
-							$this->menu->update(['pid' => $v['id'],'sort' => $chidlSort],$child['id']);
+							// dd($v['children']);
+							foreach ($v['children'] as $index => $val) {
+								$reIndex = $childCount - $index;
+								$this->menu->update(['pid' => $v['id'],'sort' => $reIndex],$val['id']);
+							}
 							$bool = true;
 						}else{
 							if (isset($menus[$k]['child'][$key]) && ($child['id'] != $menus[$k]['child'][$key]['id'])) {
