@@ -2,6 +2,21 @@ var MenuList = function() {
   var menuInit = function(){
     $('#nestable').nestable({
       "maxDepth":2
+    }).on('change',function () {
+      var list = window.JSON.stringify($('#nestable').nestable('serialize'));
+      console.log(list);
+      $.ajax({
+        url:'/admin/menu/orderable',
+        data:{
+          nestable:list
+        },
+        dataType:'json',
+        success:function (response) {
+          if (response.status) {
+            layer.msg(response.message);
+          }
+        }
+      });
     });
     var menu = {
       box:'.menuBox',
@@ -39,6 +54,8 @@ var MenuList = function() {
      * @date   2016-11-04T16:12:58+0800
      */
     $(menu.box).on('click','.createButton',function () {
+      var l = $(this).ladda();
+      var _item = $(this);
       var _form = $('#createForm');
       $.ajax({
         url:'/admin/menu',
@@ -49,7 +66,8 @@ var MenuList = function() {
           'X-CSRF-TOKEN': $("input[name='_token']").val()
         },
         beforeSend : function(){
-          layer.load(1);
+          l.ladda( 'start' );
+          _item.attr('disabled','true');
         },
         success:function (response) {
           layer.msg(response.message);
@@ -67,7 +85,8 @@ var MenuList = function() {
           layer.msg(layerStr);
         }
       }).always(function () {
-        layer.closeAll('loading');
+        l.ladda('stop');
+        _item.removeAttr('disabled');
       });;
     });
     /**
@@ -85,58 +104,83 @@ var MenuList = function() {
           if (box.is(':visible')) {
             $(menu.middleBox).removeClass('fadeInRightBig').addClass('bounceOut').hide();
           }else{
-            var _createForm = $('#createForm');
+            var _createForm = $('.formBox');
             // 创建表单存在的情况下
             if (_createForm.length > 0) {
-              $('.formBox').removeClass('bounceIn').addClass('bounceOut').remove();
+              _createForm.removeClass('bounceIn').addClass('bounceOut').remove();
             }
           }
           $(menu.box).append(htmlData);
         }
       });
     });
-    l = $('.editButton').ladda();
-    l.click(function () {
-      l.ladda( 'start' );
-    });
     /**
      * 修改菜单数据
      * @author 晚黎
      * @date   2016-11-04T16:51:00+0800
      */
-    // $(menu.box).on('click','.editButton',function () {
-    //   var _item = $(this);
+    $(menu.box).on('click','.editButton',function () {
+      var l = $(this).ladda();
+      var _item = $(this);
+      var _form = $('#editForm');
 
-    //   $.ajax({
-    //     url:'/admin/menu',
-    //     type:'post',
-    //     dataType: 'json',
-    //     data:_form.serializeArray(),
-    //     headers : {
-    //       'X-CSRF-TOKEN': $("input[name='_token']").val()
-    //     },
-    //     beforeSend : function(){
-    //       l.ladda( 'start' );
-    //     },
-    //     success:function (response) {
-    //       layer.msg(response.message);
-    //       setTimeout(function(){
-    //         window.location.href = '/admin/menu';
-    //       }, 1000);
-    //     }
-    //   }).fail(function(response) {
-    //     if(response.status == 422){
-    //       var data = $.parseJSON(response.responseText);
-    //       var layerStr = "";
-    //       for(var i in data){
-    //         layerStr += "<div>"+data[i]+"</div>";
-    //       }
-    //       layer.msg(layerStr);
-    //     }
-    //   }).always(function () {
-    //     l.ladda('stop');
-    //   });;
-    // });
+      $.ajax({
+        url:_form.attr('action'),
+        type:'post',
+        dataType: 'json',
+        data:_form.serializeArray(),
+        headers : {
+          'X-CSRF-TOKEN': $("input[name='_token']").val()
+        },
+        beforeSend : function(){
+          l.ladda( 'start' );
+          _item.attr('disabled','true');
+        },
+        success:function (response) {
+          layer.msg(response.message);
+          setTimeout(function(){
+            window.location.href = '/admin/menu';
+          }, 1000);
+        }
+      }).fail(function(response) {
+        if(response.status == 422){
+          var data = $.parseJSON(response.responseText);
+          var layerStr = "";
+          for(var i in data){
+            layerStr += "<div>"+data[i]+"</div>";
+          }
+          layer.msg(layerStr);
+        }
+      }).always(function () {
+        l.ladda('stop');
+        _item.removeAttr('disabled');
+      });;
+    });
+    /**
+     * 查看菜单详细信息
+     * @author 晚黎
+     * @date   2016-11-04
+     */
+    $('#nestable').on('click','.showInfo',function () {
+      var _item = $(this);
+      $.ajax({
+        url:_item.attr('data-href'),
+        dataType:'html',
+        success:function (htmlData) {
+          var box = $(menu.middleBox);
+          if (box.is(':visible')) {
+            $(menu.middleBox).removeClass('fadeInRightBig').addClass('bounceOut').hide();
+          }else{
+            var _createForm = $('.formBox');
+            // 创建表单存在的情况下
+            if (_createForm.length > 0) {
+              _createForm.removeClass('bounceIn').addClass('bounceOut').remove();
+            }
+          }
+          $(menu.box).append(htmlData);
+        }
+      });
+    });
   };
 
   return {

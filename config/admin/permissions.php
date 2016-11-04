@@ -26,6 +26,7 @@ return [
 		'list' 		=> 'menu.list',
 		'create' 	=> 'menu.create',
 		'edit' 		=> 'menu.edit',
+		'orderable' => 'menu.edit',
 		'destroy' 	=> 'menu.destroy',
 		'show' 		=> 'menu.show',
 	],

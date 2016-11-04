@@ -1,7 +1,7 @@
 <?php
 namespace App\Service\Admin;
 use App\Repositories\Eloquent\MenuRepositoryEloquent;
-use Exception;
+use Exception,DB;
 /**
 * 菜单service
 */
@@ -111,7 +111,115 @@ class MenuService
 		if ($menu){
 			return $menu;
 		}
+		// TODO替换正查找不到数据错误页面
 		abort(404);
+	}
+	/**
+	 * 修改菜单数据
+	 * @author 晚黎
+	 * @date   2016-11-04
+	 * @param  [type]     $attributes [表单数据]
+	 * @param  [type]     $id         [resource路由id]
+	 * @return [type]                 [Array]
+	 */
+	public function updateMenu($attributes,$id)
+	{
+		// 防止用户恶意修改表单id，如果id不一致直接跳转500
+		if ($attributes['id'] != $id) {
+			return [
+				'status' => false,
+				'message' => trans('admin/errors.user_error'),
+			];
+		}
+		try {
+			$isUpdate = $this->menu->update($attributes,$id);
+			if ($isUpdate) {
+				// 更新缓存
+				$this->sortMenuSetCache();
+			}
+			return [
+				'status' => $isUpdate,
+				'message' => $isUpdate ? trans('admin/alert.menu.edit_success'):trans('admin/alert.menu.edit_error'),
+			];
+		} catch (Exception $e) {
+			// TODO 错误信息发送邮件
+			dd($e);
+		}
+		
+
+	}
+	/**
+	 * 删除菜单
+	 * @author 晚黎
+	 * @date   2016-11-04
+	 * @param  [type]     $id [菜单ID]
+	 * @return [type]         [description]
+	 */
+	public function destroyMenu($id)
+	{
+		try {
+			$isDestroy = $this->menu->delete($id);
+			if ($isDestroy) {
+				// 更新缓存
+				$this->sortMenuSetCache();
+			}
+			flash_info($isDestroy,trans('admin/alert.menu.destroy_success'),trans('admin/alert.menu.destroy_error'));
+			return $isDestroy;
+		} catch (Exception $e) {
+			// TODO 错误信息发送邮件
+			dd($e);
+		}
+	}
+
+	public function orderable($nestableData)
+	{
+		try {
+			$dataArray = json_decode($nestableData,true);
+			$menus = array_values($this->getMenuList());
+			$menuCount = count($dataArray);
+			$bool = false;
+			DB::beginTransaction();
+			foreach ($dataArray as $k => $v) {
+				$sort = $menuCount - $k;
+				if (!isset($menus[$k])) {
+					$this->menu->update(['sort' => $sort,'pid' => 0],$v['id']);
+					$bool = true;
+				}else{
+					if (isset($menus[$k]['id']) && $v['id'] != $menus[$k]['id']) {
+						$this->menu->update(['sort' => $sort,'pid' => 0],$v['id']);
+						$bool = true;
+					}
+				}
+				if (isset($v['children']) && !empty($v['children'])) {
+					$childCount = count($v['children']);
+					foreach ($v['children'] as $key => $child) {
+						$chidlSort = $childCount - $key;
+						if (!isset($menus[$k]['child'][$key])) {
+							$this->menu->update(['pid' => $v['id'],'sort' => $chidlSort],$child['id']);
+							$bool = true;
+						}else{
+							if (isset($menus[$k]['child'][$key]) && ($child['id'] != $menus[$k]['child'][$key]['id'])) {
+								$this->menu->update(['pid' => $v['id'],'sort' => $chidlSort],$child['id']);
+								$bool = true;
+							}
+						}
+					}
+				}
+			}
+			DB::commit();
+			if ($bool) {
+				// 更新缓存
+				$this->sortMenuSetCache();
+			}
+			return [
+				'status' => $bool,
+				'message' => $bool ? trans('admin/alert.menu.order_success'):trans('admin/alert.menu.order_error')
+			];
+		} catch (Exception $e) {
+			// TODO 错误信息发送邮件
+			DB::rollBack();
+			dd($e);
+		}
 	}
 
 

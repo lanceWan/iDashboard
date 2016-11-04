@@ -1,7 +1,7 @@
 @inject('menuPresenter','App\Presenters\Admin\MenuPresenter')
 <div class="ibox float-e-margins animated bounceIn formBox" id="editBox">
   <div class="ibox-title">
-    <h5>{{trans('admin/menu.create')}}</h5>
+    <h5>{{trans('admin/menu.edit')}}</h5>
     <div class="ibox-tools">
       <a class="close-link">
           <i class="fa fa-times"></i>
@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="ibox-content">
-    <form method="post" action="{{url('admin/menu/',[$menu->id])}}" class="form-horizontal" id="createForm">
+    <form method="post" action="{{url('admin/menu',[$menu->id])}}" class="form-horizontal" id="editForm">
       {!!csrf_field()!!}
       {{method_field('PUT')}}
       <input type="hidden" name="id" value="{{$menu->id}}">
@@ -74,8 +74,8 @@
       <div class="hr-line-dashed"></div>
       <div class="form-group">
           <div class="col-sm-4 col-sm-offset-2">
-              {{-- <a class="btn btn-primary editButton ladda-button"  data-style="zoom-in">{!!trans('admin/action.actionButton.submit')!!}</a> --}}
-              <button class="ladda-button btn btn-primary editButton" type="button" data-style="expand-left">Submit</button>
+              <a class="btn btn-white close-link">{!!trans('admin/action.actionButton.close')!!}</a>
+              <button class="btn btn-primary editButton ladda-button"  data-style="zoom-in">{!!trans('admin/action.actionButton.submit')!!}</button>
           </div>
       </div>
     </form>

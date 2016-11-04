@@ -67,14 +67,12 @@
 <script type="text/javascript">
   $(document).on('click','.destroy_item',function() {
     var _item = $(this);
-    layer.msg('{{trans('admin/alert.deleteTitle')}}', {
-      time: 0, //不自动关闭
+    layer.confirm('{{trans('admin/alert.deleteTitle')}}', {
       btn: ['{{trans('admin/action.actionButton.destroy')}}', '{{trans('admin/action.actionButton.no')}}'],
       icon: 5,
-      yes: function(index){
-        _item.children('form').submit();
-        layer.close(index);
-      }
+    },function(index){
+      _item.children('form').submit();
+      layer.close(index);
     });
   });
   $(document).on('click','.reset_password',function() {

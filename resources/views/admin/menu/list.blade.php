@@ -48,4 +48,17 @@
 <script src="{{asset('vendors/ladda/ladda.jquery.min.js')}}"></script>
 <script src="{{asset('vendors/layer/layer.js')}}"></script>
 <script src="{{asset('admin/js/menu/menu.js')}}"></script>
+<script type="text/javascript">
+  $('#nestable').on('click','.destroy_item',function() {
+    var _item = $(this);
+    var title = "{{trans('admin/alert.deleteTitle')}}";
+    layer.confirm(title, {
+      btn: ['{{trans('admin/action.actionButton.destroy')}}', '{{trans('admin/action.actionButton.no')}}'],
+      icon: 5
+    },function(index){
+      _item.children('form').submit();
+      layer.close(index);
+    });
+  });
+</script>
 @endsection

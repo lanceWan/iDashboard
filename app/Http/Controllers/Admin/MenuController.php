@@ -53,14 +53,17 @@ class MenuController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 查看菜单详细数据
+     * @author 晚黎
+     * @date   2016-11-04
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function show($id)
     {
-        //
+        $menus = $this->menu->getMenuList();
+        $menu = $this->menu->findMenuById($id);
+        return view('admin.menu.show')->with(compact('menu','menus'));
     }
 
     /**
@@ -87,19 +90,26 @@ class MenuController extends Controller
      */
     public function update(MenuRequest $request, $id)
     {
-        return [
-            'massage' => 'jfhggfghjfh',
-        ];
+        $responseData = $this->menu->updateMenu($request->all(),$id);
+        return response()->json($responseData);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 删除菜单
+     * @author 晚黎
+     * @date   2016-11-04
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function destroy($id)
     {
-        //
+        $this->menu->destroyMenu($id);
+        return redirect('admin/menu');
+    }
+
+    public function orderable()
+    {
+        $responseData = $this->menu->orderable(request('nestable',''));
+        return response()->json($responseData);
     }
 }

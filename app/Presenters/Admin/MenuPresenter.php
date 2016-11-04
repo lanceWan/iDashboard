@@ -79,13 +79,13 @@ Eof;
 	{
 		$action = '<div class="pull-right">';
 		if (auth()->user()->can(config('admin.permissions.menu.show'))) {
-			$action .= '<a href="javascript:;" data-pid="'.$id.'" class="btn btn-xs tooltips" data-toggle="tooltip" data-original-title="'.trans('admin/action.actionButton.show').'"  data-placement="top"><i class="fa fa-eye"></i></a>';
+			$action .= '<a href="javascript:;" class="btn btn-xs tooltips showInfo" data-href="'.url('admin/menu',[$id]).'" data-toggle="tooltip" data-original-title="'.trans('admin/action.actionButton.show').'"  data-placement="top"><i class="fa fa-eye"></i></a>';
 		}
 		if (auth()->user()->can(config('admin.permissions.menu.edit'))) {
 			$action .= '<a href="javascript:;" data-href="'.url('admin/menu/'.$id.'/edit').'" class="btn btn-xs tooltips editMenu" data-toggle="tooltip"data-original-title="'.trans('admin/action.actionButton.edit').'"  data-placement="top"><i class="fa fa-edit"></i></a>';
 		}
 		if (auth()->user()->can(config('admin.permissions.menu.destroy'))) {
-			$action .= '<a href="javascript:;" class="btn btn-xs tooltips delete_item" data-id="'.$id.'" data-original-title="'.trans('admin/action.actionButton.destroy').'"data-toggle="tooltip"  data-placement="top"><i class="fa fa-trash"></i><form action="'.url('admin/menu',[$id]).'" method="POST" style="display:none"><input type="hidden"name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'"></form></a>';
+			$action .= '<a href="javascript:;" class="btn btn-xs tooltips destroy_item" data-id="'.$id.'" data-original-title="'.trans('admin/action.actionButton.destroy').'"data-toggle="tooltip"  data-placement="top"><i class="fa fa-trash"></i><form action="'.url('admin/menu',[$id]).'" method="POST" style="display:none"><input type="hidden"name="_method" value="delete"><input type="hidden" name="_token" value="'.csrf_token().'"></form></a>';
 		}
 		$action .= '</div>';
 		return $action;
@@ -138,6 +138,28 @@ Eof;
 				return 'selected="selected"';
 			}
 			return '';
+		}
+		return '';
+	}
+	/**
+	 * 获取菜单关系名称
+	 * @author 晚黎
+	 * @date   2016-11-04
+	 * @param  [type]     $menus [所有菜单数据]
+	 * @param  [type]     $pid   [菜单关系pid]
+	 * @return [type]            [description]
+	 */
+	public function topMenuName($menus,$pid)
+	{
+		if ($pid == 0) {
+			return '顶级菜单';
+		}
+		if ($menus) {
+			foreach ($menus as $v) {
+				if ($v['id'] == $pid) {
+					return $v['name'];
+				}
+			}
 		}
 		return '';
 	}

@@ -72,7 +72,8 @@
       <div class="hr-line-dashed"></div>
       <div class="form-group">
           <div class="col-sm-4 col-sm-offset-2">
-              <a class="btn btn-primary createButton">{!!trans('admin/action.actionButton.submit')!!}</a>
+            <a class="btn btn-white close-link">{!!trans('admin/action.actionButton.close')!!}</a>
+            <button class="btn btn-primary createButton ladda-button"  data-style="zoom-in">{!!trans('admin/action.actionButton.submit')!!}</button>
           </div>
       </div>
     </form>

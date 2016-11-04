@@ -20,10 +20,19 @@ class MenuRequest extends FormRequest
      */
     public function rules()
     {
+        $rules['name'] = 'required';
+        $rules['slug'] = 'required';
+        $rules['url'] = 'required';
+        // 添加权限
+        if (request()->isMethod('PUT') || request()->isMethod('PATH')) {
+            // 修改时 request()->method() 方法返回的是 PUT或PATCH
+            $rules['id'] = 'numeric|required';
+        }
+        return $rules;
         return [
             'name'      => 'required',
-            'language'  => 'required',
             'slug'      => 'required',
+            'url'       => 'required',
         ];
     }
     /**
@@ -36,6 +45,7 @@ class MenuRequest extends FormRequest
     {
         return [
             'required'  => trans('validation.required'),
+            'numeric'   => trans('validation.numeric'),
         ];
     }
     /**
@@ -48,8 +58,9 @@ class MenuRequest extends FormRequest
     {
         return [
             'name'      => trans('admin/menu.model.name'),
-            'language'  => trans('admin/menu.model.language'),
+            'url'       => trans('admin/menu.model.url'),
             'slug'      => trans('admin/menu.model.slug'),
+            'id'        => trans('admin/menu.model.id'),
         ];
     }
 }
