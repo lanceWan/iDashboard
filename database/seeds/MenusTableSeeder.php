@@ -13,7 +13,6 @@ class MenusTableSeeder extends Seeder
         $index = new Menu;
         $index->name = "控制台";
         $index->pid = 0;
-        $index->language = "zh";
         $index->icon = "fa fa-dashboard";
         $index->slug = "system.index";
         $index->url = "admin/dash";
@@ -30,7 +29,6 @@ class MenusTableSeeder extends Seeder
         $system = new Menu;
         $system->name = "系统管理";
         $system->pid = 0;
-        $system->language = "zh";
         $system->icon = "fa fa-cog";
         $system->slug = "system.manage";
         $system->url = "";
@@ -41,7 +39,6 @@ class MenusTableSeeder extends Seeder
         $user = new Menu;
         $user->name = "用户管理";
         $user->pid = $system->id;
-        $user->language = "zh";
         $user->icon = "fa fa-users";
         $user->slug = "user.list";
         $user->url = "admin/user";
@@ -53,7 +50,6 @@ class MenusTableSeeder extends Seeder
         $role = new Menu;
         $role->name = "角色管理";
         $role->pid = $system->id;
-        $role->language = "zh";
         $role->icon = "fa fa-male";
         $role->slug = "role.list";
         $role->url = "admin/role";
@@ -65,7 +61,6 @@ class MenusTableSeeder extends Seeder
         $permission = new Menu;
         $permission->name = "权限管理";
         $permission->pid = $system->id;
-        $permission->language = "zh";
         $permission->icon = "fa fa-paper-plane";
         $permission->slug = "permission.list";
         $permission->url = "admin/permission";
@@ -76,7 +71,6 @@ class MenusTableSeeder extends Seeder
         $log = new Menu;
         $log->name = "系统日志";
         $log->pid = $system->id;
-        $log->language = "zh";
         $log->icon = "fa fa-file-text-o";
         $log->slug = "log.all";
         $log->url = "admin/log-viewer";
@@ -87,7 +81,6 @@ class MenusTableSeeder extends Seeder
         $menu = new Menu;
         $menu->name = "菜单管理";
         $menu->pid = $system->id;
-        $menu->language = "zh";
         $menu->icon = "fa fa-navicon";
         $menu->slug = "menu.list";
         $menu->url = "admin/menu";

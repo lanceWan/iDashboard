@@ -23,9 +23,10 @@ return [
 		'reset' 	=> 'user.reset',
 	],
 	'menu' => [
-		'list' 		=> 'user.list',
-		'create' 	=> 'user.create',
-		'edit' 		=> 'user.edit',
-		'destroy' 	=> 'user.destroy',
+		'list' 		=> 'menu.list',
+		'create' 	=> 'menu.create',
+		'edit' 		=> 'menu.edit',
+		'destroy' 	=> 'menu.destroy',
+		'show' 		=> 'menu.show',
 	],
 ];

@@ -17,4 +17,15 @@ class MenuRepositoryEloquent extends BaseRepository implements MenuRepository
     {
         return Menu::class;
     }
+
+    public function allMenus()
+    {
+    	return $this->model->orderBy('sort','desc')->get()->toArray();
+    }
+
+    public function createMenu($attributes)
+    {
+        $model = new $this->model;
+        return $model->fill($attributes)->save();
+    }
 }

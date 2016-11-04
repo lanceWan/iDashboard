@@ -17,4 +17,7 @@ return [
 		'edit' 		=> '<i class="fa fa-pencil"></i> 修改用户',
 		'info' 		=> '<i class="fa fa-pencil"></i> 用户信息',
 	],
+	'menu' => [
+		'list' 		=> '<i class="fa fa-diamond"></i> 菜单管理',
+	],
 ];

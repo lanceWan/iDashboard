@@ -15,8 +15,10 @@
         </li>
     </ol>
   </div>
-  <div class="col-lg-2 text-center m-t-lg">
-    <a href="{{url('admin/user/create')}}" class="btn btn-info">{!!trans('admin/user.action.create')!!}</a>
+  <div class="col-lg-2">
+    <div class="title-action">
+      <a href="{{url('admin/user/create')}}" class="btn btn-info">{!!trans('admin/user.action.create')!!}</a>
+    </div>
   </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">

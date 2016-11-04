@@ -73,6 +73,14 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'menu.edit',
             'description' => '修改菜单'
         ]);
+        /**
+         * 查看菜单信息
+         */
+        Permission::create([
+            'name' => '查看菜单',
+            'slug' => 'menu.show',
+            'description' => '查看菜单'
+        ]);
         /////////////
         //角色管理 //
         ////////////

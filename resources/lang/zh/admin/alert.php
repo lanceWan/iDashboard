@@ -1,3 +1,4 @@
+
 <?php
 return [
 	'deleteTitle' => '确定要删除吗？',
@@ -27,5 +28,13 @@ return [
 		'destroy_error' 	=> '删除用户失败',
 		'reset_success' 	=> '重置用户密码成功',
 		'reset_error' 		=> '重置用户密码失败',
+	],
+	'menu' => [
+		'create_success' 	=> '添加菜单成功',
+		'create_error' 		=> '添加菜单失败',
+		'edit_success' 		=> '修改菜单成功',
+		'edit_error' 		=> '修改菜单失败',
+		'destroy_success' 	=> '删除菜单成功',
+		'destroy_error' 	=> '删除菜单失败',
 	],
 ];

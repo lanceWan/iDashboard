@@ -36,4 +36,8 @@ return [
 		// 控制是否显示查看按钮
 		'show' => true,
 	],
+	// 缓存
+	'cache' => [
+		'menuList' => 'menuList'
+	]
 ];

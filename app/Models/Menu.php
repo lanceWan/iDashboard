@@ -8,5 +8,14 @@ class Menu extends Model
 
 	private $action = 'menu';
 
-    protected $fillable = ['pid','name','language','icon','slug','url','active','description','sort'];
+    protected $fillable = ['pid','name','icon','slug','url','active','description','sort'];
+
+    public function setSortAttribute($value)
+    {
+    	if ($value && is_numeric($value)) {
+	        $this->attributes['sort'] = intval($value);
+    	}else{
+    		$this->attributes['sort'] = 0;
+    	}
+    }
 }
