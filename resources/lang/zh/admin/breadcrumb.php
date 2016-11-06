@@ -20,4 +20,9 @@ return [
 	'menu' => [
 		'list' 		=> '<i class="fa fa-diamond"></i> 菜单管理',
 	],
+	'log' => [
+		'dash' 		=> '<i class="fa fa-diamond"></i> 系统日志',
+		'list' 		=> '<i class="fa fa-diamond"></i> 系统日志列表',
+		'detail' 	=> '<i class="fa fa-diamond"></i> 系统日志信息',
+	],
 ];

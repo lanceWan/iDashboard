@@ -195,7 +195,6 @@ class MenuService
 					foreach ($v['children'] as $key => $child) {
 						$chidlSort = $childCount - $key;
 						if (!isset($menus[$k]['child'][$key])) {
-							// dd($v['children']);
 							foreach ($v['children'] as $index => $val) {
 								$reIndex = $childCount - $index;
 								$this->menu->update(['pid' => $v['id'],'sort' => $reIndex],$val['id']);
@@ -225,58 +224,4 @@ class MenuService
 			dd($e);
 		}
 	}
-
-
-	// public function editMenu($id)
-	// {
-	// 	$menu = $this->model->find($id)->toArray();
-	// 	if ($menu) {
-	// 		$menu['update'] = url('admin/menu/'.$id);
- //    		$menu['msg'] = '加载成功';
- //    		$menu['status'] = true;
-	// 		return $menu;
-	// 	}
-	// 	return ['status' => false,'msg' => '加载失败'];
-	// }
-	// /**
-	//  * 修改菜单
-	//  * @author 晚黎
-	//  * @date   2016-08-19
-	//  * @param  [type]     $request [description]
-	//  * @return [type]              [description]
-	//  */
-	// public function updateMenu($request)
- //    {
- //        $menu = $this->model->find($request->id);
-	// 	if ($menu) {
-			
-	// 		$isUpdate = $menu->update($request->all());
-	// 		if ($isUpdate) {
-	// 			$this->sortMenuSetCache();
-	// 			flash('修改菜单成功', 'success');
-	// 			return true;
-	// 		}
-	// 		flash('修改菜单失败', 'error');
-	// 		return false;
-	// 	}
-	// 	abort(404,'菜单数据找不到');
- //    }
- //    /**
- //     * 删除菜单
- //     * @author 晚黎
- //     * @date   2016-08-22T07:25:20+0800
- //     * @param  [type]                   $id [description]
- //     * @return [type]                       [description]
- //     */
- //    public function destroyMenu($id){
- //    	$isDelete = $this->model->destroy($id);
- //    	if ($isDelete) {
- //    		// 更新缓存数据
- //    		$this->sortMenuSetCache();
- //    		flash('删除菜单成功', 'success');
-	// 		return true;
- //    	}
- //    	flash('删除菜单失败', 'error');
-	// 	return false;
- //    }
 }

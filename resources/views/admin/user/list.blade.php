@@ -15,11 +15,13 @@
         </li>
     </ol>
   </div>
+  @permission(config('admin.permissions.user.create'))
   <div class="col-lg-2">
     <div class="title-action">
       <a href="{{url('admin/user/create')}}" class="btn btn-info">{!!trans('admin/user.action.create')!!}</a>
     </div>
   </div>
+  @endpermission
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">

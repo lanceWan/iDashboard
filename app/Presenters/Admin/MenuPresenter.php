@@ -163,4 +163,51 @@ Eof;
 		}
 		return '';
 	}
+	/**
+	 * 后台左侧菜单
+	 * @author 晚黎
+	 * @date   2016-11-06
+	 * @param  [type]     $sidebarMenus [菜单数据]
+	 * @return [type]                   [HTML]
+	 */
+	public function sidebarMenuList($sidebarMenus)
+	{
+		$html = '';
+		if ($sidebarMenus) {
+			foreach ($sidebarMenus as $menu) {
+				if ($menu['child']) {
+					$active = active_class(if_uri_pattern(explode(',',$menu['active'])),'active');
+					$url = url($menu['url']);
+					$html .= <<<Eof
+					<li class="{$active}">
+			          	<a href="{$url}"><i class="{$menu['icon']}"></i> <span class="nav-label">{$menu['name']}</span> <span class="fa arrow"></span></a>
+			          	<ul class="nav nav-second-level collapse">
+			              	{$this->childMenu($menu['child'])}
+			          	</ul>
+			      	</li>
+Eof;
+				}else{
+					$html .= '<li class="'.active_class(if_uri_pattern(explode(',',$menu['active'])),'active').'"><a href="'.url($menu['url']).'"><i class="'.$menu['icon'].'"></i> <span class="nav-label">'.$menu['name'].'</span></a></li>';
+				}
+			}
+		}
+		return $html;
+	}
+	/**
+	 * 多级菜单显示
+	 * @author 晚黎
+	 * @date   2016-11-06
+	 * @param  [type]     $childMenu [子菜单数据]
+	 * @return [type]                [HTML]
+	 */
+	public function childMenu($childMenu)
+	{
+		$html = '';
+		if ($childMenu) {
+			foreach ($childMenu as $v) {
+				$html .= '<li class="'.active_class(if_uri_pattern(explode(',',$v['active'])),'active').'"><a href="'.url($v['url']).'">'.$v['name'].'</a></li>';
+			}
+		}
+		return $html;
+	}
 }
