@@ -30,4 +30,11 @@ return [
 		'destroy' 	=> 'menu.destroy',
 		'show' 		=> 'menu.show',
 	],
+	'log' => [
+		'list' 		=> 'log.list',
+		'destroy' 	=> 'log.destroy',
+		'show' 		=> 'log.show',
+		'download' 	=> 'log.download',
+		'filter' 	=> 'log.filter',
+	],
 ];

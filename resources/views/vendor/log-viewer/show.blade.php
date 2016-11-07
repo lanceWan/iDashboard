@@ -22,7 +22,13 @@
 </div>
 <div class="wrapper wrapper-content  animated fadeInRight">
   <div class="row">
-    <h5>Log [{{ $log->date }}]</h5>
+    <div class="col-md-12">
+      <div class="ibox">
+          <div class="ibox-content text-center">
+              <h3 class="m-b-xxs">Log [{{ $log->date }}]</h3>
+          </div>
+      </div>
+    </div>
     <div class="col-md-2">
         @include('log-viewer::_partials.menu')
     </div>
@@ -32,12 +38,16 @@
             <div class="ibox-title">
               <h5>Log info :</h5>
               <div class="group-btns pull-right">
-                  <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-xs btn-success">
-                      <i class="fa fa-download"></i> DOWNLOAD
-                  </a>
-                  <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
-                      <i class="fa fa-trash-o"></i> DELETE
-                  </a>
+                @permission(config('admin.permissions.log.download'))
+                <a href="{{ route('log.download', [$log->date]) }}" class="btn btn-xs btn-success">
+                    <i class="fa fa-download"></i> DOWNLOAD
+                </a>
+                @endpermission
+                @permission(config('admin.permissions.log.destroy'))
+                <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
+                    <i class="fa fa-trash-o"></i> DELETE
+                </a>
+                @endpermission
               </div>
             </div>
             <div class="ibox-content">
@@ -150,7 +160,7 @@
 </div>
 <div id="delete-log-modal" class="modal fade">
     <div class="modal-dialog">
-        <form id="delete-log-form" action="{{ route('log-viewer::logs.delete') }}" method="POST">
+        <form id="delete-log-form" action="{{ route('log.destroy') }}" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="date" value="{{ $log->date }}">
@@ -194,7 +204,7 @@
                       submitBtn.button('reset');
                       if (data.result === 'success') {
                           deleteLogModal.modal('hide');
-                          location.replace("{{ route('log-viewer::logs.list') }}");
+                          location.replace("{{ route('log.index') }}");
                       }
                       else {
                           alert('OOPS ! This is a lack of coffee exception !')

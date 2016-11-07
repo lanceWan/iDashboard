@@ -23,16 +23,6 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'system.index',
             'description' => '后台首页'
         ]);
-        Permission::create([
-            'name' => '显示日志总览',
-            'slug' => 'logs.all',
-            'description' => '显示日志总览'
-        ]);
-        Permission::create([
-            'name' => '显示日志列表',
-            'slug' => 'logs.list',
-            'description' => '显示日志列表'
-        ]);
         //////////
         //系统管理//
         //////////
@@ -209,6 +199,38 @@ class PermissionsTableSeeder extends Seeder
             'name' => '修改用户密码',
             'slug' => 'user.reset',
             'description' => '修改用户密码'
+        ]);
+        ////////
+        //日志//
+        ////////
+        Permission::create([
+            'name' => '日志管理',
+            'slug' => 'log.list',
+            'description' => '日志管理'
+        ]);
+
+        Permission::create([
+            'name' => '删除日志',
+            'slug' => 'log.destroy',
+            'description' => '删除日志'
+        ]);
+
+        Permission::create([
+            'name' => '查看日志',
+            'slug' => 'log.show',
+            'description' => '查看日志'
+        ]);
+
+        Permission::create([
+            'name' => '下载日志',
+            'slug' => 'log.download',
+            'description' => '下载日志'
+        ]);
+
+        Permission::create([
+            'name' => '筛选日志信息',
+            'slug' => 'log.filter',
+            'description' => '筛选日志信息'
         ]);
     }
 }

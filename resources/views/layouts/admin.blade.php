@@ -27,7 +27,7 @@
           </div>
           <ul class="nav navbar-top-links navbar-right">
               <li>
-                  <span class="m-r-sm text-muted welcome-message">Hi,iwanli.</span>
+                  <span class="m-r-sm text-muted welcome-message">Hi,{{getUser()->name}}.</span>
               </li>
               <li class="dropdown">
                   <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -71,11 +71,10 @@
                       </li>
                   </ul>
               </li>
-
-
               <li>
-                  <a href="login.html">
-                      <i class="fa fa-sign-out"></i> Log out
+                  <a href="{{ url('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                      <i class="fa fa-sign-out"></i> Logout
+                      <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                   </a>
               </li>
           </ul>

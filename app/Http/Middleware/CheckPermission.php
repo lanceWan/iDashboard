@@ -18,6 +18,7 @@ class CheckPermission
         switch ($routeName) {
             case $model.'.index':
             case $model.'.ajaxIndex':
+            case $model.'.dash':
                 $permission = config('admin.permissions.'.$model.'.list','');
                 break;
             case $model.'.create':

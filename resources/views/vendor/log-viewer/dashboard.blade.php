@@ -15,11 +15,13 @@
       </li>
     </ol>
   </div>
+  @permission(config('admin.permissions.log.list'))
   <div class="col-lg-2">
     <div class="title-action">
-      <a href="{{url('admin/viewer/logs')}}" class="btn btn-info">{!!trans('admin/log.list')!!}</a>
+      <a href="{{route('log.index')}}" class="btn btn-info">{!!trans('admin/log.list')!!}</a>
     </div>
   </div>
+  @endpermission
 </div>
 <div class="wrapper wrapper-content  animated fadeInRight">
   <div class="ibox float-e-margins">
@@ -76,16 +78,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
 <script>
-    Chart.defaults.global.responsive      = true;
-    Chart.defaults.global.scaleFontFamily = "'Source Sans Pro'";
-    Chart.defaults.global.animationEasing = "easeOutQuart";
-    $(function() {
-            var data = {!! $reports !!};
-
-            new Chart($('#stats-doughnut-chart')[0].getContext('2d'))
-                .Doughnut(data, {
-                    animationEasing : "easeOutQuart"
-                });
-        });
+  Chart.defaults.global.responsive      = true;
+  Chart.defaults.global.scaleFontFamily = "'Source Sans Pro'";
+  Chart.defaults.global.animationEasing = "easeOutQuart";
+  $(function() {
+    var data = {!! $reports !!};
+    new Chart($('#stats-doughnut-chart')[0].getContext('2d'))
+      .Doughnut(data, {
+          animationEasing : "easeOutQuart"
+    });
+  });
 </script>
 @endsection
