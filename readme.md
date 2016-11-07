@@ -2,14 +2,21 @@
 
 基于Laravel5.3的后台管理系统，实现最基本的后台框架：权限、角色、菜单、用户、日志功能，后台主题是用的 [INSPINIA - Responsive Admin Theme](https://wrapbootstrap.com/theme/inspinia-responsive-admin-theme-WB0R5L90S) 主题，本人代码完全开源，至于主题只供学习交流。如需商业应用请自行购买授权！
 
+
+![](http://cache.iwanli.me/iDashboard_log_index.png)
+![](http://cache.iwanli.me/iDashboard_menu_list.png)
+![](http://cache.iwanli.me/iDashboard_permission_list.png)
+
 在 [Laravel5.2 iAdmin](https://github.com/lanceWan/IAdmin) 基础上升级为 `Laravel5.3` ,同时优化了很多代码，代码模式更改。本后台打算一直更新下去并持续集成，下面是接下来要添加的功能：
 
+* 后台首页统计相关信息
 * 系统报错发送邮件(队列发送)
 * 系统配置功能
 * 即时通知
 *  `Media Manager` 资源管理(本地和七牛)
 * 在线 IM 聊天
 * **基于 `iDashboard` 的个人博客计划**
+* **基于 `iDashboard` 代码将css、js用 [Laravel Elixir](https://laravel.com/docs/5.3/elixir) 管理。Blade视图与 Vuejs2.0 结合管理**
 
 OK,这是目前想要完善的地方，可能冒出其他的灵感。待续...
 
