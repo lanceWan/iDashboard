@@ -175,6 +175,9 @@ Eof;
 		$html = '';
 		if ($sidebarMenus) {
 			foreach ($sidebarMenus as $menu) {
+				if (!auth()->user()->can($menu['slug'])) {
+					continue;
+				}
 				if ($menu['child']) {
 					$active = active_class(if_uri_pattern(explode(',',$menu['active'])),'active');
 					$url = url($menu['url']);

@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('check.permission:system');
+    }
 	/**
 	 * 控制台
 	 * @author 晚黎

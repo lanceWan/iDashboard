@@ -37,4 +37,7 @@ return [
 		'download' 	=> 'log.download',
 		'filter' 	=> 'log.filter',
 	],
+	'system' => [
+		'list' => 'system.index'
+	]
 ];

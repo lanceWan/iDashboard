@@ -13,6 +13,9 @@ class CheckPermission
      */
     public function handle($request, Closure $next,$model)
     {
+        if ($model == config('admin.permissions.system.login')) {
+            $this->check($request,$model);
+        }
         $routeName = Route::currentRouteName();
         $permission = '';
         switch ($routeName) {
@@ -34,9 +37,14 @@ class CheckPermission
                 $permission = config('admin.permissions.'.$model,'');
                 break;
         }
+        $this->check($request,$permission);
+        return $next($request);
+    }
+
+    private function check($request,$permission)
+    {
         if (!$request->user()->can($permission)) {
             abort(500,trans('admin/errors.permissions'));
         }
-        return $next($request);
     }
 }

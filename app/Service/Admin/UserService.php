@@ -104,7 +104,6 @@ class UserService
 			if ($result) {
 				// 角色与用户关系
 				if ($formData['role']) {
-					$formData['password'] = bcrypt($formData['password']);
 					$result->roles()->sync($formData['role']);
 				}
 				// 权限与用户关系
@@ -214,7 +213,7 @@ class UserService
 			'status'=> false,
 			'msg' 	=> trans('admin/alert.user.reset_error'),
 		];
-		$result = $this->user->update(['password' => bcrypt(config('admin.global.reset'))],$id);
+		$result = $this->user->update(['password' => config('admin.global.reset')],$id);
 		if ($result) {
 			$responseData['status'] = true;
 			$responseData['msg'] 	= trans('admin/alert.user.reset_success');

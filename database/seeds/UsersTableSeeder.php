@@ -17,13 +17,13 @@ class UsersTableSeeder extends Seeder
         	'name' => '晚黎',
             'username' => 'iwanli',
         	'email' => '709344897@qq.com',
-        	'password' => bcrypt('123456')
+        	'password' => '123456'
         ])->each(function ($u) use ($admin){
             $u->attachRole($admin);
         });
 
         factory('App\User', 3)->create([
-        	'password' => bcrypt('123456')
+        	'password' => '123456'
         ])->each(function ($u) use ($user){
             $u->attachRole($user);
         });
