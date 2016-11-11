@@ -33,17 +33,6 @@
     </dt>
     @endif
     </dd>
-    <dd class="val_icon">
-    <div class="checkcode">
-      <input type="text" id="J_codetext" placeholder="{{trans('validation.attributes.captcha')}}" name="captcha" maxlength="4" class="login_txtbx">
-    </div>
-    <img src="{{captcha_src()}}" style="cursor: pointer;" onclick="this.src='{{captcha_src()}}'+Math.random()" class="ver_btn" />
-    @if ($errors->has('captcha'))
-    <dt class="error">
-      <em>{{ $errors->first('captcha') }}</em>
-    </dt>
-    @endif
-    </dd>
     <dd>
     <input type="submit" value="立即登陆" class="submit_btn"/>
     </dd>

@@ -45,23 +45,4 @@ class LoginController extends Controller
     {
         return config('admin.global.username');
     }
-
-    /**
-     * 重写登录验证，添加验证码
-     * @author 晚黎
-     * @date   2016-10-20
-     * @param  Request
-     * @return [type]
-     */
-    protected function validateLogin(Request $request)
-    {
-        $this->validate($request, [
-            $this->username() => 'required', 
-            'password' => 'required',
-            // 'captcha' => 'required|captcha'
-        ],[
-            'captcha.required' => trans('validation.required'),
-            'captcha.captcha' => trans('validation.captcha'),
-        ]);
-    }
 }
