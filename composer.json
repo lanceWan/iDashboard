@@ -7,7 +7,6 @@
     "require": {
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
-        "mews/captcha": "^2.1",
         "predis/predis": "^1.1",
         "prettus/l5-repository": "^2.6",
         "geniusts/roles": "^3.0.2",

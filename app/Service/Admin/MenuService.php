@@ -1,11 +1,12 @@
 <?php
 namespace App\Service\Admin;
 use App\Repositories\Eloquent\MenuRepositoryEloquent;
+use App\Service\Admin\BaseService;
 use Exception,DB;
 /**
 * 菜单service
 */
-class MenuService
+class MenuService extends BaseService
 {
 	private $menu;
 
@@ -94,8 +95,9 @@ class MenuService
 				'message' => $result ? trans('admin/alert.menu.create_success'):trans('admin/alert.menu.create_error'),
 			];
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -142,8 +144,9 @@ class MenuService
 				'message' => $isUpdate ? trans('admin/alert.menu.edit_success'):trans('admin/alert.menu.edit_error'),
 			];
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 		
 
@@ -166,8 +169,9 @@ class MenuService
 			flash_info($isDestroy,trans('admin/alert.menu.destroy_success'),trans('admin/alert.menu.destroy_error'));
 			return $isDestroy;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 
@@ -219,9 +223,10 @@ class MenuService
 				'message' => $bool ? trans('admin/alert.menu.order_success'):trans('admin/alert.menu.order_error')
 			];
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
+			// 错误信息发送邮件
 			DB::rollBack();
-			dd($e);
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 }

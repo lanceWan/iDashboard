@@ -3,11 +3,12 @@ namespace App\Service\Admin;
 use App\Repositories\Eloquent\UserRepositoryEloquent;
 use App\Repositories\Eloquent\RoleRepositoryEloquent;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent;
+use App\Service\Admin\BaseService;
 use Exception;
 /**
 * 角色service
 */
-class UserService
+class UserService extends BaseService
 {
 
 	private $user;
@@ -114,8 +115,9 @@ class UserService
 			flash_info($result,trans('admin/alert.user.create_success'),trans('admin/alert.user.create_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -177,8 +179,9 @@ class UserService
 			flash_info($result,trans('admin/alert.user.edit_success'),trans('admin/alert.user.edit_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -195,8 +198,9 @@ class UserService
 			flash_info($result,trans('admin/alert.user.destroy_success'),trans('admin/alert.user.destroy_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 		
 	}

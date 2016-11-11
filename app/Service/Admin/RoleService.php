@@ -2,11 +2,12 @@
 namespace App\Service\Admin;
 use App\Repositories\Eloquent\RoleRepositoryEloquent;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent;
+use App\Service\Admin\BaseService;
 use Exception;
 /**
 * 角色service
 */
-class RoleService
+class RoleService extends BaseService
 {
 
 	private $role;
@@ -81,8 +82,9 @@ class RoleService
 			flash_info($result,trans('admin/alert.role.create_success'),trans('admin/alert.role.create_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -127,8 +129,9 @@ class RoleService
 			flash_info($result,trans('admin/alert.role.edit_success'),trans('admin/alert.role.edit_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -145,8 +148,9 @@ class RoleService
 			flash_info($result,trans('admin/alert.role.destroy_success'),trans('admin/alert.role.destroy_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 		
 	}

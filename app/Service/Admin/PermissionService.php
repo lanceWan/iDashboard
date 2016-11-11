@@ -1,11 +1,12 @@
 <?php
 namespace App\Service\Admin;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent;
+use App\Service\Admin\BaseService;
 use Exception;
 /**
 * 权限service
 */
-class PermissionService
+class PermissionService extends BaseService
 {
 
 	private $permission;
@@ -68,8 +69,9 @@ class PermissionService
 			flash_info($result,trans('admin/alert.permission.create_success'),trans('admin/alert.permission.create_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -106,8 +108,9 @@ class PermissionService
 			flash_info($result,trans('admin/alert.permission.edit_success'),trans('admin/alert.permission.edit_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 	}
 	/**
@@ -124,8 +127,9 @@ class PermissionService
 			flash_info($result,trans('admin/alert.permission.destroy_success'),trans('admin/alert.permission.destroy_error'));
 			return $result;
 		} catch (Exception $e) {
-			// TODO 错误信息发送邮件
-			dd($e);
+			// 错误信息发送邮件
+			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
+			return false;
 		}
 		
 	}
