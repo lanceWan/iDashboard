@@ -30,7 +30,9 @@ class RolesTableSeeder extends Seeder
         /**
          * 普通用户赋予一般权限
          */
-        $loginBackendPer = Permission::where('slug', 'systems.login')->first();
+        $loginBackendPer = Permission::where('slug', 'system.login')->first();
+        $dashBackendPer = Permission::where('slug', 'system.index')->first();
         $userRole->attachPermission($loginBackendPer);
+        $userRole->attachPermission($dashBackendPer);
     }
 }
