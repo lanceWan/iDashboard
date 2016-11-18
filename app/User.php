@@ -5,9 +5,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use GeniusTS\Roles\Traits\HasRoleAndPermission;
 use GeniusTS\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use App\Traits\ActionButtonAttributeTrait;
+use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable implements HasRoleAndPermissionContract
 {
-    use Notifiable,HasRoleAndPermission,ActionButtonAttributeTrait;
+    use HasApiTokens,Notifiable,HasRoleAndPermission,ActionButtonAttributeTrait;
 
     private $action = 'user';
     /**

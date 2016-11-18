@@ -12,7 +12,8 @@
         "geniusts/roles": "^3.0.2",
         "laracasts/flash": "^2.0",
         "hieu-le/active": "^3.3",
-        "arcanedev/log-viewer": "^4.0"
+        "arcanedev/log-viewer": "^4.0",
+        "laravel/passport": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

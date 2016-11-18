@@ -173,6 +173,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class, // flash 通知
         HieuLe\Active\ActiveServiceProvider::class, //Active
         Arcanedev\LogViewer\LogViewerServiceProvider::class, //系统日志
+        Laravel\Passport\PassportServiceProvider::class, //oauth2
 
 
         /*
