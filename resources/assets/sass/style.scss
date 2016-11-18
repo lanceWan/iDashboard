@@ -1,0 +1,36 @@
+// Variables, Mixins
+@import "variables";
+@import "mixins";
+
+// INSPINIA Theme Elements
+@import "typography";
+@import "navigation";
+@import "top_navigation";
+@import "buttons";
+@import "badgets_labels";
+@import "elements";
+@import "sidebar";
+@import "base";
+@import "pages";
+@import "chat";
+@import "metismenu";
+@import "spinners";
+
+// INSPINIA Skins
+@import "skins";
+@import "md-skin";
+
+// Media query style
+@import "media";
+
+// Clear layout on print mode
+@media print {
+  nav.navbar-static-side {
+    display: none;
+  }
+  body { overflow: visible !important; }
+
+  #page-wrapper {
+    margin: 0;
+  }
+}
