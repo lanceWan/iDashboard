@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $user = \App\User::find(1);
+        // $token = $user->createToken('iwanli')->accessToken;
+        // dd($token);
         return view('layouts.vue');
     }
 }

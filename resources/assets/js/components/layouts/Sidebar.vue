@@ -21,26 +21,22 @@
                     IN+
                 </div>
             </li>
-            <li>
-                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li><a href="index.html">Dashboard v.1</a></li>
-                    <li><a href="dashboard_2.html">Dashboard v.2</a></li>
-                    <li><a href="dashboard_3.html">Dashboard v.3</a></li>
-                    <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
-                    <li><a href="dashboard_5.html">Dashboard v.5 </a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                		<router-link :to="item.url" v-for="item of sidebar" tag="li"><a>{{item.title}}</a></router-link>
-                </ul>
-            </li>
-            <li>
-                <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
-            </li>
         </ul>
+        <el-col :span="24">
+			    <el-menu class="el-menu-vertical-demo" default-active="dash" theme="dark" router="router">
+			    	<template v-for="item of sidebar">
+			      <el-submenu v-if="item.child.length > 0" v-bind:index="item.url">
+			        <template slot="title"><i :class="item.icon"></i> {{item.name}}</template>
+		          <el-menu-item v-for="i in item.child" v-bind:index="i.url" :route="{path: i.url}">
+		          <i :class="i.icon"></i> {{i.name}}
+		          </el-menu-item>
+			      </el-submenu>
+			      <el-menu-item v-else v-bind:index="item.url" :route="{path: item.url}">
+                  <i :class="item.icon"></i> {{item.name}}
+                  </el-menu-item>
+			      </template>
+			    </el-menu>
+			  </el-col>
     </div>
 </nav>
 </template>
@@ -48,11 +44,24 @@
 	export default {
 		data() {
 	    return {
-	      sidebar: [
-	      	{url: 'foo', title: 'go to foo'},
-	      	{url: 'bar', title: 'go to bar'},
-	      ]
+	      sidebar: {}
 	    }
 	  },
+	  created () {
+	  	this.fetchSidebarMenu()
+	  },
+	  methods: {
+	  	fetchSidebarMenu () {
+	  		this.$http.get('http://idashboard.app/api/menu/sidebar').then(response => {
+          console.log(response)
+          this.sidebar = response.data
+        })
+	  	}
+	  }
 	}
 </script>
+<style>
+  .el-menu--dark{
+    background-color:#2F4050;
+  }
+</style>

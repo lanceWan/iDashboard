@@ -32,7 +32,7 @@ elixir(mix => {
         module: {
             loaders: [
                 {test: /\.css$/,loader: 'style!css'},
-                {test: /\.(gif|jpg|png)\??.*$/, loader: 'url-loader?limit=8192'},
+                {test: /\.(gif|jpg|png)\??.*$/, loader: 'url-loader?limit=8192&patterns/[hash:8].[name].[ext]'},
             ]
         }
     });

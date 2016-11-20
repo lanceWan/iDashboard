@@ -66,4 +66,16 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
         return $array;
     }
 
+    
+    public function getPermissionListForVue($start,$length)
+    {
+        $permission = $this->model;
+
+        $count = $permission->count();
+
+        $permissions = $permission->offset($start)->limit($length)->get()->toArray();
+
+        return compact('count','permissions');
+    }
+
 }
