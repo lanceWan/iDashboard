@@ -33,6 +33,8 @@
                         <div class="table-responsive">
                           <el-table
                           :data="tableData"
+                          v-loading="laoding"
+                          element-loading-text="玩命加载中..."
                           border
                           style="width: 100%">
                           <el-table-column
@@ -72,8 +74,8 @@
                             label="操作"
                             min-width="100">
                             <span>
-                              <el-button type="text" size="small">查看</el-button>
-                              <el-button type="text" size="small" @click="handleEdit($index, row)">编辑</el-button>
+                              <el-button type="warning" size="mini" icon="edit" @click="handleEdit($index, row)">编辑</el-button>
+                              <el-button type="danger" size="mini" icon="delete">删除</el-button>
                             </span>
                           </el-table-column>
                         </el-table>
@@ -105,7 +107,8 @@ export default {
         current: 1,
         size: 10,
         total: 0
-      }
+      },
+      loading:true
     }
   },
   created () {
@@ -116,8 +119,10 @@ export default {
       this.$http.get('/api/permission?current='+this.tablePagination.current+'&size='+this.tablePagination.size).then((response) => {
         this.tableData = response.data.data
         this.tablePagination.total = response.data.total
+        this.laoding = false
       }, (response) => {
-      	console.log(response.status)
+      	// console.log(response.status)
+        this.laoding = false
         this.$message.error('哪里出错啦！');
       })
     },
