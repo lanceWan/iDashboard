@@ -102,13 +102,20 @@ class PermissionService
 		}
 		try {
 			$result = $this->permission->update($attributes,$id);
-			flash_info($result,trans('admin/alert.permission.edit_success'),trans('admin/alert.permission.edit_error'));
-			return $result;
+			if ($result) {
+				return [
+					'status' => true,
+					'msg' => trans('admin/alert.permission.edit_success'),
+				];
+			}
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
+		return [
+			'status' => false,
+			'msg' => trans('admin/alert.permission.edit_error'),
+		];
 	}
 	/**
 	 * 权限暂不做状态管理，直接删除

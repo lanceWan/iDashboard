@@ -56,6 +56,7 @@
                           <el-table-column
                             prop="description"
                             label="描述"
+                            show-overflow-tooltip="show"
                             min-width="150">
                           </el-table-column>
                           <el-table-column
@@ -72,7 +73,7 @@
                             inline-template
                             fixed="right"
                             label="操作"
-                            min-width="100">
+                            min-width="140">
                             <span>
                               <router-link :to="{ name: 'edit-permission', params: { id: row.id }}">
                                 <el-button type="warning" size="mini" icon="edit">编辑</el-button>

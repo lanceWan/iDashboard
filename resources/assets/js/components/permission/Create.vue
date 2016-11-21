@@ -116,7 +116,7 @@
 					message: msg,
 					type: status ? 'info':'error',
 					onClose: function () {
-						router.replace({path: '/permission'})
+						router.push({name: '/permission'})
 					}
 				})
 			}

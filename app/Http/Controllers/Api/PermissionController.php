@@ -36,10 +36,28 @@ class PermissionController extends Controller
     $responseData = $this->permission->storePermission($request->all());
     return response()->json($responseData);
   }
-
+  /**
+   * 修改权限获取权限数据
+   * @author 晚黎
+   * @date   2016-11-21
+   * @param  [type]
+   * @return [type]
+   */
   public function edit($id)
   {
     $responseData = $this->permission->editView($id);
     return response()->json($responseData);
+  }
+  /**
+   * @author 晚黎
+   * @date   2016-11-21
+   * @param  修改权限
+   * @param  [type]
+   * @return [type]
+   */
+  public function update(PermissionRequest $request,$id)
+  {
+  	$responseData = $this->permission->updatePermission($request->all(),$id);
+  	return response()->json($responseData);
   }
 }

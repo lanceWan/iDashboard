@@ -64,7 +64,7 @@
 									<router-link to="/permission" tag="span">
 									<a class="btn btn-white"><i class="fa fa-reply"></i> 返回</a>
 									</router-link>
-									<button class="btn btn-primary" @click="createPermission"><i class="fa fa-paper-plane-o"></i> 提交</button>
+									<button class="btn btn-primary" @click="editPermission"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
 							</div>
 						</form>
@@ -88,22 +88,31 @@
 				errors: {
 					name: '',
 					slug: ''
-				}
+				},
+				permission_id: 0
 			}
 		},
 		created () {
+			this.permission_id = this.$route.params.id
 			this.fetchData()
 		},
 		methods: {
 			fetchData() {
-				var url = '/api/permission/'+ this.$route.params.id +'/edit'
+				var url = '/api/permission/'+ this.permission_id +'/edit'
 				this.$http.get(url)
 					.then(response => {
 						console.log(response)
 						if (response.data.status) {
 							this.formData = response.data.responseData
 						}else{
-
+							this.$message({
+								showClose: true,
+								message: msg,
+								type: 'error',
+								onClose: function () {
+									this.$router.push({name: 'permission'})
+								}
+							})
 						}
 					},response => {
 						this.$message({
@@ -113,8 +122,8 @@
 		        });
 					})
 			},
-			createPermission() {
-				this.$http.post('api/permission',this.formData)
+			editPermission() {
+				this.$http.put('/api/permission/' + this.permission_id,this.formData)
 					.then(response => {
 						// console.log(response)
 						this.messgeClose(response.data.status,response.data.msg,this.$router)
