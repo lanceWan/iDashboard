@@ -108,7 +108,7 @@ export default {
         size: 10,
         total: 0
       },
-      loading:true
+      laoding:true
     }
   },
   created () {
