@@ -74,9 +74,17 @@ class PermissionService
 	{
 		$permission =  $this->permission->find($id);
 		if ($permission) {
-			return $permission;
+			return [
+				'status' => true,
+				'msg' => '获取成功',
+				'responseData' => $permission->toArray()
+			];
 		}
-		abort(404);
+		return [
+			'status' => false,
+			'msg' => '数据找不到',
+			'responseData' => []
+		];
 	}
 	/**
 	 * 修改权限

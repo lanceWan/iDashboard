@@ -53,7 +53,7 @@
 	  methods: {
 	  	fetchSidebarMenu () {
 	  		this.$http.get('http://idashboard.app/api/menu/sidebar').then(response => {
-          console.log(response)
+          // console.log(response.data)
           this.sidebar = response.data
         })
 	  	}

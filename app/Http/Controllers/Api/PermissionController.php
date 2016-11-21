@@ -36,4 +36,10 @@ class PermissionController extends Controller
     $responseData = $this->permission->storePermission($request->all());
     return response()->json($responseData);
   }
+
+  public function edit($id)
+  {
+    $responseData = $this->permission->editView($id);
+    return response()->json($responseData);
+  }
 }

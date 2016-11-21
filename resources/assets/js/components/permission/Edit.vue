@@ -15,7 +15,7 @@
 					</router-link>
 				</li>
 				<li class="active">
-					<strong><i class="fa fa-plus"></i> 添加权限</strong>
+					<strong><i class="fa fa-edit"></i> 修改权限</strong>
 				</li>
 			</ol>
 		</div>
@@ -25,7 +25,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>权限管理</h5>
+						<h5>修改权限</h5>
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal">
@@ -91,7 +91,28 @@
 				}
 			}
 		},
+		created () {
+			this.fetchData()
+		},
 		methods: {
+			fetchData() {
+				var url = '/api/permission/'+ this.$route.params.id +'/edit'
+				this.$http.get(url)
+					.then(response => {
+						console.log(response)
+						if (response.data.status) {
+							this.formData = response.data.responseData
+						}else{
+
+						}
+					},response => {
+						this.$message({
+		          showClose: true,
+		          message: '好像哪里出错了~刷新一下！',
+		          type: 'error'
+		        });
+					})
+			},
 			createPermission() {
 				this.$http.post('api/permission',this.formData)
 					.then(response => {
@@ -116,7 +137,7 @@
 					message: msg,
 					type: status ? 'info':'error',
 					onClose: function () {
-						router.replace({path: '/permission'})
+						router.push({name: 'permission'})
 					}
 				})
 			}

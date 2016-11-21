@@ -16,7 +16,7 @@
         </div>
         <div class="col-lg-2">
 			    <div class="title-action">
-			    	<router-link to="/createPermission" tag="div">
+			    	<router-link :to="{name:'create-permission'}" tag="div">
 			    		<a class="btn btn-info"><i class="fa fa-cog"></i> 添加权限</a>
 			    	</router-link>
 			    </div>
@@ -74,7 +74,9 @@
                             label="操作"
                             min-width="100">
                             <span>
-                              <el-button type="warning" size="mini" icon="edit" @click="handleEdit($index, row)">编辑</el-button>
+                              <router-link :to="{ name: 'edit-permission', params: { id: row.id }}">
+                                <el-button type="warning" size="mini" icon="edit">编辑</el-button>
+                              </router-link>
                               <el-button type="danger" size="mini" icon="delete">删除</el-button>
                             </span>
                           </el-table-column>
@@ -108,7 +110,7 @@ export default {
         size: 10,
         total: 0
       },
-      laoding:true
+      laoding:true,
     }
   },
   created () {
@@ -128,15 +130,14 @@ export default {
     },
     handleSizeChange(val) {
       this.tablePagination.size = val
+      this.laoding = true
       this.fetchData()
     },
     handleCurrentChange(val) {
       this.tablePagination.current = val
+      this.laoding = true
       this.fetchData()
       // console.log(`当前页: ${val}`);
-    },
-    handleEdit(index, row) {
-    	console.log(index,row.id)
     }
   }
 }
