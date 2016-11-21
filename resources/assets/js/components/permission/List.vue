@@ -16,10 +16,9 @@
         </div>
         <div class="col-lg-2">
 			    <div class="title-action">
-			    	<router-link to="/permission/create" tag="div">
+			    	<router-link to="/createPermission" tag="div">
 			    		<a class="btn btn-info"><i class="fa fa-cog"></i> 添加权限</a>
 			    	</router-link>
-			    	
 			    </div>
 			  </div>
     </div>
@@ -129,7 +128,7 @@ export default {
     handleCurrentChange(val) {
       this.tablePagination.current = val
       this.fetchData()
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
     },
     handleEdit(index, row) {
     	console.log(index,row.id)

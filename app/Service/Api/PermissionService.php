@@ -50,12 +50,17 @@ class PermissionService
 	{
 		try {
 			$result = $this->permission->create($formData);
-			flash_info($result,trans('admin/alert.permission.create_success'),trans('admin/alert.permission.create_error'));
-			return $result;
+			return [
+				'status' => true,
+				'msg' => trans('admin/alert.permission.create_success')
+			];
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
+			return [
+				'status' => false,
+				'msg' => trans('admin/alert.permission.create_error')
+			];
 		}
 	}
 	/**

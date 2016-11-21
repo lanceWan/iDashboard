@@ -17,6 +17,7 @@ import App from './components/App'
 const router = new VueRouter({
   // mode: 'history',
   routes,
+  base: __dirname,
 })
 
 const app = new Vue({
