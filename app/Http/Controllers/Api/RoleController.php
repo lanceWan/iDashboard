@@ -62,14 +62,15 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @author 晚黎
+     * @date   2016-11-22
+     * @param  修改角色数据
+     * @return [type]
      */
     public function edit($id)
     {
-        //
+        $responseData = $this->role->findRoleById($id);
+        return response()->json($responseData);
     }
 
     /**

@@ -28,7 +28,7 @@
 						<h5>权限管理</h5>
 					</div>
 					<div class="ibox-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" @submit.prevent>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">权限名称</label>
 								<div class="col-sm-10">
@@ -64,7 +64,7 @@
 									<router-link to="/permission" tag="span">
 									<a class="btn btn-white"><i class="fa fa-reply"></i> 返回</a>
 									</router-link>
-									<button class="btn btn-primary" @click="createPermission"><i class="fa fa-paper-plane-o"></i> 提交</button>
+									<button class="btn btn-primary" type="button" @click.prevent="createPermission"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
 							</div>
 						</form>
@@ -99,6 +99,7 @@
 						this.messgeClose(response.data.status,response.data.msg,this.$router)
 					},response =>  {
 						if (response.status == 422) {
+							this.initErrors()
 							var errors = response.data
 							for(var itemError in errors){
 								if (itemError == 'name') {
@@ -120,6 +121,10 @@
 					}
 				})
 			}
-		}
+		},
+		initErrors() {
+			this.errors.name = '';
+			this.errors.slug = '';
+		},
 	}
 </script>

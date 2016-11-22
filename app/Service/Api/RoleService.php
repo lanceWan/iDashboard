@@ -84,11 +84,25 @@ class RoleService extends BaseService
 	 */
 	public function findRoleById($id)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => '数据错误',
+			'role' => [],
+			'permissions' => []
+		];
 		$role =  $this->role->with(['permissions'])->find($id);
 		if ($role) {
-			return $role;
+			$role = $role->toArray();
+			if ($role['permissions']) {
+				$role['permission'] = array_column($role['permissions'], 'id');
+				unset($role['permissions']);
+			}
+			$responseData['status'] = true;
+			$responseData['msg'] = '获取成功';
+			$responseData['permissions'] = $this->getAllPermissionList();
+			$responseData['role'] = $role;
 		}
-		abort(404);
+		return $responseData;
 	}
 	/**
 	 * 修改权限

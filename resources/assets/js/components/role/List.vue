@@ -75,9 +75,6 @@
                             label="操作"
                             min-width="140">
                             <span>
-                              <router-link :to="{ name: 'show-role', params: { id: row.id }}">
-                                <el-button type="info" size="mini" icon="edit">查看</el-button>
-                              </router-link>
                               <router-link :to="{ name: 'edit-role', params: { id: row.id }}">
                                 <el-button type="warning" size="mini" icon="edit">编辑</el-button>
                               </router-link>
@@ -143,7 +140,7 @@ export default {
       this.fetchData()
       // console.log(`当前页: ${val}`);
     },
-    destroyPermission(row) {
+    destroyRole(row) {
       this.$confirm('此操作将永久删除该角色, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

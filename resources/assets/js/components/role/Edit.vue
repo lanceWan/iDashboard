@@ -15,7 +15,7 @@
 					</router-link>
 				</li>
 				<li class="active">
-					<strong><i class="fa fa-plus"></i> 添加角色</strong>
+					<strong><i class="fa fa-edit"></i> 修改角色</strong>
 				</li>
 			</ol>
 		</div>
@@ -96,6 +96,7 @@
 									</router-link>
 									<button class="btn btn-primary" @click.prevent="createRole" type="button"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
+								<p>{{formData.permission}}--11</p>
 							</div>
 						</form>
 					</div>
@@ -114,17 +115,19 @@
 					slug:'',
 					description:'',
 					level:'',
-					permission:[]
+					permission:["14"]
 				},
 				errors: {
 					name: '',
 					slug: ''
 				},
 				permissions:{},
+				role_id: 0,
 				loading: true
 			}
 		},
 		created () {
+			this.role_id = this.$route.params.id
 			this.fetchData()
 		},
 		methods: {
@@ -159,9 +162,18 @@
 			},
 			fetchData() {
 				var _this = this
-				this.$http.get('/api/role/create')
+				var url = '/api/role/' + this.role_id + '/edit'
+				this.$http.get(url)
 					.then(response => {
-						this.permissions = response.data
+						this.permissions = response.data.permissions
+						this.formData = response.data.role
+						if (response.data.role.permission.length > 0) {
+							var arr = [];
+							for (var i = 0; i < response.data.role.permission.length; i++) {
+								arr[i] = response.data.role.permission[i] +  ''
+							}
+						}
+						this.formData.permission = arr
 						this.loading = false
 					},response => {
 						this.$message({
