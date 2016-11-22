@@ -60,4 +60,10 @@ class PermissionController extends Controller
   	$responseData = $this->permission->updatePermission($request->all(),$id);
   	return response()->json($responseData);
   }
+
+  public function destroy($id)
+  {
+    $responseData = $this->permission->destroyPermission($id);
+    return response()->json($responseData);
+  }
 }

@@ -56,7 +56,7 @@
                           <el-table-column
                             prop="description"
                             label="描述"
-                            show-overflow-tooltip="show"
+                            show-overflow-tooltip="show-overflow-tooltip"
                             min-width="150">
                           </el-table-column>
                           <el-table-column
@@ -78,7 +78,7 @@
                               <router-link :to="{ name: 'edit-permission', params: { id: row.id }}">
                                 <el-button type="warning" size="mini" icon="edit">编辑</el-button>
                               </router-link>
-                              <el-button type="danger" size="mini" icon="delete">删除</el-button>
+                              <el-button type="danger" size="mini" icon="delete" @click="destroyPermission(row)">删除</el-button>
                             </span>
                           </el-table-column>
                         </el-table>
@@ -139,6 +139,32 @@ export default {
       this.laoding = true
       this.fetchData()
       // console.log(`当前页: ${val}`);
+    },
+    destroyPermission(row) {
+      this.$confirm('此操作将永久删除该权限, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'error'
+      }).then(() => {
+        var _this = this
+        this.$http.delete('/api/permission/'+row.id)
+          .then((response) => {
+            this.$message({
+              showClose: true,
+              type: 'success',
+              message: response.data.msg,
+              onClose: function () {
+                _this.fetchData()
+              }
+            });
+          },(response) => {
+            this.$message({
+              showClose: true,
+              type: 'error',
+              message: response.data.msg
+            });
+          })
+      })
     }
   }
 }

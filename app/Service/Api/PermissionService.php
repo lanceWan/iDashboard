@@ -126,15 +126,18 @@ class PermissionService
 	 */
 	public function destroyPermission($id)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.permission.destroy_error')
+		];
 		try {
 			$result = $this->permission->delete($id);
-			flash_info($result,trans('admin/alert.permission.destroy_success'),trans('admin/alert.permission.destroy_error'));
-			return $result;
+			$responseData['status'] = true;
+			$responseData['msg'] = trans('admin/alert.permission.destroy_success');
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
-		
+		return $responseData;
 	}
 }
