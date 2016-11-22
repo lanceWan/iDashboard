@@ -32,8 +32,6 @@ class PermissionService
 
 		$result = $this->permission->getPermissionListForVue($start,$length);
 
-		$permissions = [];
-
 		return [
 			'total' => $result['count'],
 			'data' => $result['permissions'],

@@ -26,36 +26,18 @@ class RoleService extends BaseService
 	 */
 	public function ajaxIndex()
 	{
-		// datatables请求次数
-		$draw = request('draw', 1);
-		// 开始条数
-		$start = request('start', config('admin.golbal.list.start'));
+		// 当前页数
+		$current = request('current', 1);
 		// 每页显示数目
-		$length = request('length', config('admin.golbal.list.length'));
-		// datatables是否启用模糊搜索
-		$search['regex'] = request('search.regex', false);
-		// 搜索框中的值
-		$search['value'] = request('search.value', '');
-		// 排序
-		$order['name'] = request('columns.' .request('order.0.column',0) . '.name');
-		$order['dir'] = request('order.0.dir','asc');
+		$length = request('size', config('admin.golbal.list.length'));
+		// 开始条数
+		$start = ($current - 1) * $length;
+		
 
-		$result = $this->role->getRoleList($start,$length,$search,$order);
-
-		$roles = [];
-
-		if ($result['roles']) {
-			foreach ($result['roles'] as $v) {
-				$v->actionButton = $v->getActionButtonAttribute(false);
-				$roles[] = $v;
-			}
-		}
-
+		$result = $this->role->getRoleListForVue($start,$length);
 		return [
-			'draw' => $draw,
-			'recordsTotal' => $result['count'],
-			'recordsFiltered' => $result['count'],
-			'data' => $roles,
+			'total' => $result['count'],
+			'data' => $result['roles'],
 		];
 	}
 	/**

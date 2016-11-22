@@ -2,7 +2,7 @@
 <div>
 	<div class="row wrapper border-bottom white-bg page-heading">
 		<div class="col-lg-10">
-			<h2>权限管理</h2>
+			<h2>角色管理</h2>
 			<ol class="breadcrumb">
 				<li>
 					<router-link to="/dash">
@@ -10,12 +10,12 @@
 					</router-link>
 				</li>
 				<li>
-					<router-link :to="{name: 'permission'}">
-					<i class="fa fa-diamond"></i> 权限列表
+					<router-link :to="{name: 'role'}">
+					<i class="fa fa-diamond"></i> 角色列表
 					</router-link>
 				</li>
 				<li class="active">
-					<strong><i class="fa fa-edit"></i> 修改权限</strong>
+					<strong><i class="fa fa-plus"></i> 添加角色</strong>
 				</li>
 			</ol>
 		</div>
@@ -25,22 +25,22 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>修改权限</h5>
+						<h5>角色管理</h5>
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-2 control-label">权限名称</label>
+								<label class="col-sm-2 control-label">角色名称</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.name" placeholder="权限名称">
+									<input type="text" class="form-control" v-model="formData.name" placeholder="角色名称">
 									<span class="help-block m-b-none text-danger">{{ errors.name }}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">权限</label>
+								<label class="col-sm-2 control-label">角色</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.slug" placeholder="权限">
+									<input type="text" class="form-control" v-model="formData.slug" placeholder="角色">
 									<span class="help-block m-b-none text-danger">{{ errors.slug }}</span>
 								</div>
 							</div>
@@ -53,18 +53,48 @@
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">模型</label>
+								<label class="col-sm-2 control-label">等级</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.model" placeholder="模型">
+									<input type="text" class="form-control" v-model="formData.level" placeholder="等级">
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	              <label class="col-sm-2 control-label">分配权限</label>
+	              <div class="col-sm-10">
+	                <div class="ibox float-e-margins">
+	                  <table class="table table-bordered">
+	                    <thead>
+	                      <tr>
+	                          <th class="col-md-1 text-center">模块</th>
+	                          <th class="col-md-10 text-center">权限</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <template v-for="(role,key) in roles">
+												  <tr>
+												  	<td>{{key}}</td>
+												  	<td>
+												  		<div class="col-md-4" v-for="item of role">
+				                     		<el-checkbox-group v-model="formData.permission">
+															    <el-checkbox :label="item.id+''">{{item.name}}</el-checkbox>
+															  </el-checkbox-group>
+			                      	</div>
+												  	</td>
+												  </tr>
+												</template>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<div class="col-sm-4 col-sm-offset-2">
-									<router-link to="/permission" tag="span">
+									<router-link :to="{name:'role'}" tag="span">
 									<a class="btn btn-white"><i class="fa fa-reply"></i> 返回</a>
 									</router-link>
-									<button class="btn btn-primary" @click="editPermission"><i class="fa fa-paper-plane-o"></i> 提交</button>
+									<button class="btn btn-primary" @click="createRole"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
 							</div>
 						</form>
@@ -83,47 +113,22 @@
 					name:'',
 					slug:'',
 					description:'',
-					model:''
+					level:'',
+					permission:[]
 				},
 				errors: {
 					name: '',
 					slug: ''
 				},
-				permission_id: 0
+				roles:{},
 			}
 		},
 		created () {
-			this.permission_id = this.$route.params.id
 			this.fetchData()
 		},
 		methods: {
-			fetchData() {
-				var url = '/api/permission/'+ this.permission_id +'/edit'
-				this.$http.get(url)
-					.then(response => {
-						console.log(response)
-						if (response.data.status) {
-							this.formData = response.data.responseData
-						}else{
-							this.$message({
-								showClose: true,
-								message: msg,
-								type: 'error',
-								onClose: function () {
-									this.$router.push({name: 'permission'})
-								}
-							})
-						}
-					},response => {
-						this.$message({
-		          showClose: true,
-		          message: '好像哪里出错了~刷新一下！',
-		          type: 'error'
-		        })
-					})
-			},
-			editPermission() {
-				this.$http.put('/api/permission/' + this.permission_id,this.formData)
+			createRole() {
+				this.$http.post('api/role',this.formData)
 					.then(response => {
 						// console.log(response)
 						this.messgeClose(response.data.status,response.data.msg,this.$router)
@@ -146,9 +151,26 @@
 					message: msg,
 					type: status ? 'info':'error',
 					onClose: function () {
-						router.push({name: 'permission'})
+						router.push({name: '/role'})
 					}
 				})
+			},
+			fetchData() {
+				var _this = this
+				this.$http.get('/api/role/create')
+					.then(response => {
+						this.roles = response.data
+						console.log(this.roles)
+					},response => {
+						this.$message({
+							showClose: true,
+							message: '好像哪里出错了!',
+							type: 'error',
+							onClose: function () {
+								_this.$router.push({name: 'role'})
+							}
+						})
+					})
 			}
 		}
 	}

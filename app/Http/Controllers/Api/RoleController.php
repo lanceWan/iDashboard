@@ -26,24 +26,27 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 角色视图获取所有权限
+     * @author 晚黎
+     * @date   2016-11-22T15:33:35+0800
+     * @return [type]                   [description]
      */
     public function create()
     {
-        //
+        $responseData = $this->role->getAllPermissionList();
+        return response()->json($responseData);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 添加角色
+     * @author 晚黎
+     * @date   2016-11-22T16:52:27+0800
+     * @param  RoleRequest              $request [description]
+     * @return [type]                            [description]
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        //
+        
     }
 
     /**

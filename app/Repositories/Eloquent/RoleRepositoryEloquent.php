@@ -49,6 +49,25 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
         return compact('count','roles');
     }
 
+    /**
+     * 角色数据API
+     * @author 晚黎
+     * @date   2016-11-22T14:47:09+0800
+     * @param  [type]                   $start  [description]
+     * @param  [type]                   $length [description]
+     * @return [type]                           [description]
+     */
+    public function getRoleListForVue($start,$length)
+    {
+        $role = $this->model;
+
+        $count = $role->count();
+
+        $roles = $role->offset($start)->limit($length)->get()->toArray();
+
+        return compact('count','roles');
+    }
+
     public function createRole($formData)
     {
         $role = $this->model;

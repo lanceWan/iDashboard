@@ -23,4 +23,6 @@ Route::group(['namespace' => 'Api','middleware' => ['auth:api']], function ($rou
 	require(__DIR__ . '/api/menu.php');
 	// 权限
 	require(__DIR__ . '/api/permission.php');
+	// 角色
+	require(__DIR__ . '/api/role.php');
 });
