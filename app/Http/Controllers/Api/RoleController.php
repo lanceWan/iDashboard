@@ -46,7 +46,8 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        
+        $responseData = $this->role->storeRole($request->all());
+        return response()->json($responseData);
     }
 
     /**

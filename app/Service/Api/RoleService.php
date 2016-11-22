@@ -59,15 +59,21 @@ class RoleService extends BaseService
 	 */
 	public function storeRole($formData)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.role.create_error')
+		];
 		try {
 			$result = $this->role->createRole($formData);
-			flash_info($result,trans('admin/alert.role.create_success'),trans('admin/alert.role.create_error'));
-			return $result;
+			if ($result) {
+				$responseData['status'] = true;
+				$responseData['msg'] = trans('admin/alert.role.create_success');
+			}
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
+		return $responseData;
 	}
 	/**
 	 * 根据ID获取权限数据

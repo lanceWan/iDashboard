@@ -28,11 +28,11 @@
 						<h5>角色管理</h5>
 					</div>
 					<div class="ibox-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" @submit.prevent="createRole">
 							<div class="form-group">
 								<label class="col-sm-2 control-label">角色名称</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.name" placeholder="角色名称">
+									<input type="text" class="form-control" v-model="formData.name" placeholder="角色名称" @keyup.enter.prevent >
 									<span class="help-block m-b-none text-danger">{{ errors.name }}</span>
 								</div>
 							</div>
@@ -63,7 +63,7 @@
 	              <label class="col-sm-2 control-label">分配权限</label>
 	              <div class="col-sm-10">
 	                <div class="ibox float-e-margins">
-	                  <table class="table table-bordered">
+	                  <table class="table table-bordered" v-loading="loading" element-loading-text="拼命加载中...">
 	                    <thead>
 	                      <tr>
 	                          <th class="col-md-1 text-center">模块</th>
@@ -94,7 +94,7 @@
 									<router-link :to="{name:'role'}" tag="span">
 									<a class="btn btn-white"><i class="fa fa-reply"></i> 返回</a>
 									</router-link>
-									<button class="btn btn-primary" @click="createRole"><i class="fa fa-paper-plane-o"></i> 提交</button>
+									<button class="btn btn-primary"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
 							</div>
 						</form>
@@ -121,6 +121,7 @@
 					slug: ''
 				},
 				roles:{},
+				loading: true
 			}
 		},
 		created () {
@@ -151,7 +152,7 @@
 					message: msg,
 					type: status ? 'info':'error',
 					onClose: function () {
-						router.push({name: '/role'})
+						router.push({name: 'role'})
 					}
 				})
 			},
@@ -160,7 +161,7 @@
 				this.$http.get('/api/role/create')
 					.then(response => {
 						this.roles = response.data
-						console.log(this.roles)
+						this.loading = false
 					},response => {
 						this.$message({
 							showClose: true,
@@ -171,6 +172,9 @@
 							}
 						})
 					})
+			},
+			keyEnter() {
+				console.log('eee')
 			}
 		}
 	}
