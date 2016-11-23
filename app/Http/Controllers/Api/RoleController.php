@@ -51,14 +51,16 @@ class RoleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 查看角色信息
+     * @author 晚黎
+     * @date   2016-11-23T15:05:27+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
      */
     public function show($id)
     {
-        //
+        $responseData = $this->role->findRoleById($id,true);
+        return response()->json($responseData);
     }
 
     /**
@@ -74,25 +76,29 @@ class RoleController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改角色
+     * @author 晚黎
+     * @date   2016-11-23T14:09:13+0800
+     * @param  Request                  $request [description]
+     * @param  [type]                   $id      [description]
+     * @return [type]                            [description]
      */
     public function update(Request $request, $id)
     {
-        //
+        $responseData = $this->role->updateRole($request->all(),$id);
+        return response()->json($responseData);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 删除角色
+     * @author 晚黎
+     * @date   2016-11-23T14:18:40+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
      */
     public function destroy($id)
     {
-        //
+        $responseData = $this->role->destroyRole($id);
+        return response()->json($responseData);
     }
 }

@@ -4,13 +4,13 @@ use GeniusTS\Roles\Models\Permission as Model;
 use App\Traits\ActionButtonAttributeTrait;
 class Permission extends Model
 {
-    use ActionButtonAttributeTrait;
+  use ActionButtonAttributeTrait;
 
-    private $action = 'permission';
+  private $action = 'permission';
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-    }
+  public function __construct(array $attributes = [])
+  {
+    parent::__construct($attributes);
+  }
 
 }

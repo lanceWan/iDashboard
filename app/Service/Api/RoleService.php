@@ -2,14 +2,15 @@
 namespace App\Service\Api;
 use App\Repositories\Eloquent\RoleRepositoryEloquent;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent;
-use App\Service\Admin\BaseService;
+use App\Traits\ServiceTrait;
 use Exception;
 /**
 * 角色service
 */
-class RoleService extends BaseService
+class RoleService
 {
-
+	use ServiceTrait;
+	
 	private $role;
 	private $permission;
 
@@ -82,7 +83,7 @@ class RoleService extends BaseService
 	 * @param  [type]                   $id [权限id]
 	 * @return [type]                       [查询出来的权限对象，查不到数据时跳转404]
 	 */
-	public function findRoleById($id)
+	public function findRoleById($id,$bool = false)
 	{
 		$responseData = [
 			'status' => false,
@@ -93,14 +94,32 @@ class RoleService extends BaseService
 		$role =  $this->role->with(['permissions'])->find($id);
 		if ($role) {
 			$role = $role->toArray();
-			if ($role['permissions']) {
-				$role['permission'] = array_column($role['permissions'], 'id');
-				unset($role['permissions']);
+			if ($bool) {
+				if ($role['permissions']) {
+					$permissions = [];
+					foreach ($role['permissions'] as $v) {
+						array_set($permissions, $v['slug'], ['name' => $v['name']]);
+					}
+					$role['permissions'] = $permissions;
+				}
+				$responseData['status'] = true;
+				$responseData['msg'] = '获取成功';
+				$responseData['role'] = $role;
+			}else{
+				if ($role['permissions']) {
+					$ids = [];
+					foreach ($role['permissions'] as $v) {
+						$ids[] = strval($v['id']);
+					}
+
+					$role['permission'] = $ids;
+					unset($role['permissions']);
+				}
+				$responseData['status'] = true;
+				$responseData['msg'] = '获取成功';
+				$responseData['permissions'] = $this->getAllPermissionList();
+				$responseData['role'] = $role;
 			}
-			$responseData['status'] = true;
-			$responseData['msg'] = '获取成功';
-			$responseData['permissions'] = $this->getAllPermissionList();
-			$responseData['role'] = $role;
 		}
 		return $responseData;
 	}
@@ -114,9 +133,13 @@ class RoleService extends BaseService
 	 */
 	public function updateRole($attributes,$id)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.role.edit_error')
+		];
 		// 防止用户恶意修改表单id，如果id不一致直接跳转500
 		if ($attributes['id'] != $id) {
-			abort(500,trans('admin/errors.user_error'));
+			return $responseData;
 		}
 		try {
 			$result = $this->role->update($attributes,$id);
@@ -127,14 +150,14 @@ class RoleService extends BaseService
 				}else{
 					$result->permissions()->sync([]);
 				}
+				$responseData['status'] = true;
+				$responseData['msg'] = trans('admin/alert.role.edit_success');
 			}
-			flash_info($result,trans('admin/alert.role.edit_success'),trans('admin/alert.role.edit_error'));
-			return $result;
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
+		return $responseData;
 	}
 	/**
 	 * 角色暂不做状态管理，直接删除
@@ -145,15 +168,20 @@ class RoleService extends BaseService
 	 */
 	public function destroyRole($id)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.role.destroy_error')
+		];
 		try {
 			$result = $this->role->delete($id);
-			flash_info($result,trans('admin/alert.role.destroy_success'),trans('admin/alert.role.destroy_error'));
-			return $result;
+			if ($result) {
+				$responseData['status'] = true;
+				$responseData['msg'] = trans('admin/alert.role.destroy_success');
+			}
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
-		
+		return $responseData;
 	}
 }

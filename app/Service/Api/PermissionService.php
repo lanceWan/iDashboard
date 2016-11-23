@@ -1,12 +1,14 @@
 <?php
 namespace App\Service\Api;
 use App\Repositories\Eloquent\PermissionRepositoryEloquent;
+use App\Traits\ServiceTrait;
 use Exception;
 /**
 * 权限service
 */
 class PermissionService
 {
+	use ServiceTrait;
 
 	private $permission;
 

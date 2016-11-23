@@ -73,8 +73,11 @@
                             inline-template
                             fixed="right"
                             label="操作"
-                            min-width="140">
+                            min-width="150">
                             <span>
+                              <router-link :to="{ name: 'show-role', params: { id: row.id }}">
+                                <el-button type="info" size="mini" icon="search">查看</el-button>
+                              </router-link>
                               <router-link :to="{ name: 'edit-role', params: { id: row.id }}">
                                 <el-button type="warning" size="mini" icon="edit">编辑</el-button>
                               </router-link>
@@ -147,7 +150,7 @@ export default {
         type: 'error'
       }).then(() => {
         var _this = this
-        this.$http.delete('/api/permission/'+row.id)
+        this.$http.delete('/api/role/'+row.id)
           .then((response) => {
             this.$message({
               showClose: true,

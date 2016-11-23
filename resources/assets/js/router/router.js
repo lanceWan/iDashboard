@@ -9,6 +9,7 @@ import PermissionEdit from '../components/permission/Edit'
 import RoleList from '../components/role/List'
 import RoleCreate from '../components/role/Create'
 import RoleEdit from '../components/role/Edit'
+import RoleShow from '../components/role/Show'
 
 const routes = [
   { path: '/dash', component: Example },
@@ -17,6 +18,7 @@ const routes = [
   { path: '/permission/create', component: PermissionCreate ,name: 'create-permission'},
   { path: '/permission/:id/edit', component: PermissionEdit, name: 'edit-permission' },
   { path: '/role', component: RoleList, name: 'role' },
+  { path: '/role/:id', component: RoleShow, name: 'show-role' },
   { path: '/role/create', component: RoleCreate, name: 'create-role' },
   { path: '/role/:id/edit', component: RoleEdit, name: 'edit-role' },
   // { path: '/', redirect: '/top' }

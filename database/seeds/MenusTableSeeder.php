@@ -15,8 +15,8 @@ class MenusTableSeeder extends Seeder
         $index->pid = 0;
         $index->icon = "fa fa-dashboard";
         $index->slug = "system.index";
-        $index->url = "admin/dash";
-        $index->active = "admin/dash";
+        $index->url = "/dash";
+        $index->active = "/dash";
         $index->description = "后台首页";
         $index->save();
 
@@ -30,8 +30,8 @@ class MenusTableSeeder extends Seeder
         $system->pid = 0;
         $system->icon = "fa fa-cog";
         $system->slug = "system.manage";
-        $system->url = "";
-        $system->active = "admin/role*,admin/permission*,admin/user*,admin/menu*,admin/log*";
+        $system->url = "/system";
+        $system->active = "/role*,/permission*,/user*,/menu*,/log*";
         $system->description = "系统功能管理";
         $system->save();
 
@@ -40,8 +40,8 @@ class MenusTableSeeder extends Seeder
         $user->pid = $system->id;
         $user->icon = "fa fa-users";
         $user->slug = "user.list";
-        $user->url = "admin/user";
-        $user->active = "admin/user*";
+        $user->url = "/user";
+        $user->active = "/user*";
         $user->description = "显示用户管理";
         $user->save();
 
@@ -51,8 +51,8 @@ class MenusTableSeeder extends Seeder
         $role->pid = $system->id;
         $role->icon = "fa fa-male";
         $role->slug = "role.list";
-        $role->url = "admin/role";
-        $role->active = "admin/role*";
+        $role->url = "/role";
+        $role->active = "/role*";
         $role->description = "显示角色管理";
         $role->save();
 
@@ -62,8 +62,8 @@ class MenusTableSeeder extends Seeder
         $permission->pid = $system->id;
         $permission->icon = "fa fa-paper-plane";
         $permission->slug = "permission.list";
-        $permission->url = "admin/permission";
-        $permission->active = "admin/permission*";
+        $permission->url = "/permission";
+        $permission->active = "/permission*";
         $permission->description = "显示权限管理";
         $permission->save();
 
@@ -72,8 +72,8 @@ class MenusTableSeeder extends Seeder
         $menu->pid = $system->id;
         $menu->icon = "fa fa-navicon";
         $menu->slug = "menu.list";
-        $menu->url = "admin/menu";
-        $menu->active = "admin/menu*";
+        $menu->url = "/menu";
+        $menu->active = "/menu*";
         $menu->description = "显示菜单管理";
         $menu->save();
 
@@ -82,8 +82,8 @@ class MenusTableSeeder extends Seeder
         $log->pid = $system->id;
         $log->icon = "fa fa-file-text-o";
         $log->slug = "log.all";
-        $log->url = "admin/log";
-        $log->active = "admin/log*";
+        $log->url = "/log";
+        $log->active = "/log*";
         $log->description = "显示系统日志";
         $log->save();
     }
