@@ -112,16 +112,15 @@
 	    }
 		},
 		created () {
-
+			this.fetchData()
 		},
 		methods: {
 	    fetchData () {
-	      this.$http.get('/api/role?current='+this.tablePagination.current+'&size='+this.tablePagination.size).then((response) => {
+	      this.$http.get('/api/user?current='+this.tablePagination.current+'&size='+this.tablePagination.size).then((response) => {
 	        this.tableData = response.data.data
 	        this.tablePagination.total = response.data.total
 	        this.laoding = false
 	      }, (response) => {
-	      	// console.log(response.status)
 	        this.laoding = false
 	        this.$message.error('哪里出错啦！');
 	      })
@@ -135,16 +134,15 @@
 	      this.tablePagination.current = val
 	      this.laoding = true
 	      this.fetchData()
-	      // console.log(`当前页: ${val}`);
 	    },
-	    destroyRole(row) {
-	      this.$confirm('此操作将永久删除该角色, 是否继续?', '提示', {
+	    destroyUser(row) {
+	      this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
 	        confirmButtonText: '确定',
 	        cancelButtonText: '取消',
 	        type: 'error'
 	      }).then(() => {
 	        var _this = this
-	        this.$http.delete('/api/role/'+row.id)
+	        this.$http.delete('/api/user/'+row.id)
 	          .then((response) => {
 	            this.$message({
 	              showClose: true,

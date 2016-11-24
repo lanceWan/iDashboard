@@ -1,20 +1,29 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Service\Api\UserService;
 class UserController extends Controller
 {
+    protected $service;
+
+    function __construct(UserService $user)
+    {
+        $this->user = $user;
+    }
+    
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 用户列表首页
+     * @author 晚黎
+     * @date   2016-11-24T10:06:47+0800
+     * @return [type]                   [description]
      */
     public function index()
     {
-        //
+        $responseData = $this->user->ajaxIndex();
+        return response()->json($responseData);
     }
 
     /**

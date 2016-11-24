@@ -49,17 +49,15 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return compact('count','users');
     }
 
-    // public function createRole($formData)
-    // {
-    //     $role = $this->model;
-    //     if ($role->fill($formData)->save()) {
-    //         // 更新角色权限关系
-    //         if (isset($formData['permission'])) {
-    //             $role->permissions()->sync($formData['permission']);
-    //         }
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    public function getUserListForVue($start,$length)
+    {
+        $user = $this->model;
+        
+        $count = $user->count();
+
+        $users = $user->offset($start)->limit($length)->get();
+
+        return compact('count','users');
+    }
     
 }
