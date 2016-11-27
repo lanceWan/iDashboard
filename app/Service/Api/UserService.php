@@ -52,7 +52,9 @@ class UserService
 	 */
 	public function createView()
 	{
-		return [$this->getAllPermissionList(),$this->getAllRoles()];
+		$permissions = $this->getAllPermissionList();
+		$roles = $this->getAllRoles();
+		return compact('permissions','roles');
 	}
 	/**
 	 * 获取所有权限并分组
@@ -83,6 +85,10 @@ class UserService
 	 */
 	public function storeUser($formData)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.user.create_error')
+		];
 		try {
 			$result = $this->user->create($formData);
 			if ($result) {
@@ -95,13 +101,15 @@ class UserService
 					$result->userPermissions()->sync($formData['permission']);
 				}
 			}
-			flash_info($result,trans('admin/alert.user.create_success'),trans('admin/alert.user.create_error'));
-			return $result;
+			if ($result) {
+				$responseData['status'] = true;
+				$responseData['msg'] = trans('admin/alert.user.create_success');
+			}
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
+		return $responseData;
 	}
 	/**
 	 * 编辑用户视图所需数据

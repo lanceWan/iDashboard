@@ -33,7 +33,7 @@
 								<label class="col-sm-2 control-label">权限名称</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" v-model="formData.name" placeholder="权限名称">
-									<span class="help-block m-b-none text-danger">{{ errors.name }}</span>
+									<span v-if="errors.name" class="help-block m-b-none text-danger">{{ errors.name + ''}}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -41,7 +41,7 @@
 								<label class="col-sm-2 control-label">权限</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" v-model="formData.slug" placeholder="权限">
-									<span class="help-block m-b-none text-danger">{{ errors.slug }}</span>
+									<span v-if="errors.slug" class="help-block m-b-none text-danger">{{ errors.slug + ''}}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
@@ -85,10 +85,7 @@
 					description:'',
 					model:''
 				},
-				errors: {
-					name: '',
-					slug: ''
-				}
+				errors: {}
 			}
 		},
 		methods: {
@@ -99,15 +96,8 @@
 						this.messgeClose(response.data.status,response.data.msg,this.$router)
 					},response =>  {
 						if (response.status == 422) {
-							this.initErrors()
-							var errors = response.data
-							for(var itemError in errors){
-								if (itemError == 'name') {
-									this.errors.name = errors[itemError][0]
-								}else{
-									this.errors.slug = errors[itemError][0]
-								}
-							}
+							this.errors = {}
+							this.errors = response.data
 						}
 					})
 			},
@@ -121,10 +111,6 @@
 					}
 				})
 			}
-		},
-		initErrors() {
-			this.errors.name = '';
-			this.errors.slug = '';
 		},
 	}
 </script>

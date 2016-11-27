@@ -12,6 +12,8 @@ import RoleEdit from '../components/role/Edit'
 import RoleShow from '../components/role/Show'
 
 import UserList from '../components/user/List'
+import UserCreate from '../components/user/Create'
+import UserEdit from '../components/user/Edit'
 
 const routes = [
   { path: '/dash', component: Example },
@@ -23,6 +25,8 @@ const routes = [
   { path: '/role/create', component: RoleCreate, name: 'create-role' },
   { path: '/role/:id/edit', component: RoleEdit, name: 'edit-role' },
   { path: '/user', component: UserList, name: 'user' },
+  { path: '/user/create', component: UserCreate, name: 'create-user' },
+  { path: '/user/:id/edit', component: UserEdit, name: 'edit-user' },
   { path: '*', redirect: '/dash' }
 ]
 

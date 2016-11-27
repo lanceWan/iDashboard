@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Service\Api\UserService;
+use App\Http\Requests\UserRequest;
 class UserController extends Controller
 {
     protected $service;
@@ -33,18 +34,21 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $responseData = $this->user->createView();
+        return response()->json($responseData);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 添加用户
+     * @author 晚黎
+     * @date   2016-11-26
+     * @param  UserRequest $request [description]
+     * @return [type]               [description]
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $responseData = $this->user->storeUser($request->all());
+        return response()->json($responseData);
     }
 
     /**

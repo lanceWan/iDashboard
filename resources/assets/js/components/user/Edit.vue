@@ -2,7 +2,7 @@
 <div>
 	<div class="row wrapper border-bottom white-bg page-heading">
 		<div class="col-lg-10">
-			<h2>角色管理</h2>
+			<h2>用户管理</h2>
 			<ol class="breadcrumb">
 				<li>
 					<router-link to="/dash">
@@ -10,12 +10,12 @@
 					</router-link>
 				</li>
 				<li>
-					<router-link :to="{name: 'role'}">
-					<i class="fa fa-diamond"></i> 角色列表
+					<router-link :to="{name: 'user'}">
+					<i class="fa fa-diamond"></i> 用户列表
 					</router-link>
 				</li>
 				<li class="active">
-					<strong><i class="fa fa-edit"></i> 修改角色</strong>
+					<strong><i class="fa fa-plus"></i> 添加用户</strong>
 				</li>
 			</ol>
 		</div>
@@ -25,44 +25,62 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>角色管理</h5>
+						<h5>用户管理</h5>
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal" @submit.prevent>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">角色名称</label>
+								<label class="col-sm-2 control-label">用户名称</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.name" placeholder="角色名称">
-									<span v-if="errors.name" class="help-block m-b-none text-danger">{{ errors.name + ''}}</span>
+									<input type="text" class="form-control" v-model="formData.name" placeholder="用户名称">
+									<span v-if="errors.name" class="help-block m-b-none text-danger">{{ errors.name + '' }}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">角色</label>
+								<label class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.slug" placeholder="角色">
-									<span v-if="errors.slug" class="help-block m-b-none text-danger">{{ errors.slug + ''}}</span>
+									<input type="text" class="form-control" v-model="formData.username" placeholder="用户名">
+									<span v-if="errors.username" class="help-block m-b-none text-danger">{{ errors.username + '' }}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">描述</label>
+								<label class="col-sm-2 control-label">密码</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.description" placeholder="描述">
+									<input type="password" class="form-control" v-model="formData.password" placeholder="密码">
+									<span v-if="errors.password" class="help-block m-b-none text-danger">{{ errors.password + '' }}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">等级</label>
+								<label class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.level" placeholder="等级">
+									<input type="text" class="form-control" v-model="formData.email" placeholder="邮箱">
+									<span v-if="errors.email" class="help-block m-b-none text-danger">{{ errors.email + '' }}</span>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 	            <div class="form-group">
-	              <label class="col-sm-2 control-label">分配权限</label>
+	              <label class="col-sm-2 control-label">角色</label>
+	              <div class="col-sm-10">
+	                <template>
+		                <label class="checkbox-inline">
+										  <el-checkbox-group v-model="formData.role">
+										    <el-checkbox :label="role.id + ''" v-for="role of roles">{{role.name}}</el-checkbox>
+										  </el-checkbox-group>
+									  </label>
+									</template>
+	              </div>
+	            </div>
+							<div class="hr-line-dashed"></div>
+	            <div class="form-group">
+	              <label class="col-sm-2 control-label">分配额外权限</label>
 	              <div class="col-sm-10">
 	                <div class="ibox float-e-margins">
+		                <div class="alert alert-warning">
+	                    <strong>注意！</strong> 当某个角色的用户需要额外权限时添加。
+	                  </div>
 	                  <table class="table table-bordered" v-loading="loading" element-loading-text="拼命加载中...">
 	                    <thead>
 	                      <tr>
@@ -94,7 +112,7 @@
 									<router-link :to="{name:'role'}" tag="span">
 									<a class="btn btn-white"><i class="fa fa-reply"></i> 返回</a>
 									</router-link>
-									<button class="btn btn-primary" @click.prevent="eidtRole" type="button"><i class="fa fa-paper-plane-o"></i> 提交</button>
+									<button class="btn btn-primary" @click.prevent="createUser" type="button"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
 							</div>
 						</form>
@@ -111,26 +129,26 @@
 			return {
 				formData: {
 					name:'',
-					slug:'',
-					description:'',
-					level:'',
-					permission:[]
+					username:'',
+					password:'',
+					email:'',
+					permission:[],
+					role:[]
 				},
-				errors: {},
+				errors:{},
 				permissions:{},
-				role_id: 0,
-				loading: true
+				roles:{},
+				loading: true,
+				dialogVisible:true
 			}
 		},
 		created () {
-			this.role_id = this.$route.params.id
 			this.fetchData()
 		},
 		methods: {
-			eidtRole() {
-				this.$http.put('api/role/'+this.role_id,this.formData)
+			createUser() {
+				this.$http.post('api/user',this.formData)
 					.then(response => {
-						// console.log(response)
 						this.messgeClose(response.data.status,response.data.msg,this.$router)
 					},response =>  {
 						if (response.status == 422) {
@@ -145,34 +163,28 @@
 					message: msg,
 					type: status ? 'info':'error',
 					onClose: function () {
-						router.push({name: 'role'})
+						router.push({name: 'user'})
 					}
 				})
 			},
 			fetchData() {
 				var _this = this
-				var url = '/api/role/' + this.role_id + '/edit'
-				this.$http.get(url)
+				this.$http.get('/api/user/create')
 					.then(response => {
 						this.permissions = response.data.permissions
-						this.formData = response.data.role
+						this.roles = response.data.roles
 						this.loading = false
 					},response => {
-						this.loading = false
 						this.$message({
 							showClose: true,
 							message: '好像哪里出错了!',
 							type: 'error',
 							onClose: function () {
-								_this.$router.push({name: 'role'})
+								_this.$router.push({name: 'user'})
 							}
 						})
 					})
 			},
-			initErrors() {
-				this.errors.name = '';
-				this.errors.slug = '';
-			}
 		}
 	}
 </script>
