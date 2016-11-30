@@ -120,7 +120,19 @@ class UserService
 	 */
 	public function editView($id)
 	{
-		return [$this->findUserById($id),$this->getAllPermissionList(),$this->getAllRoles()];
+		$responseData = [
+			'status' => false,
+			'msg' => '获取用户失败'
+		];
+		$user = $this->findUserById($id);
+		if ($user) {
+			$responseData['status'] = true;
+			$responseData['msg'] = '获取成功';
+			$responseData['user'] = $user;
+			$responseData['permissions'] = $this->getAllPermissionList();
+			$responseData['roles'] = $this->getAllRoles();
+ 		}
+		return $responseData;
 	}
 	/**
 	 * 根据ID获取权限数据

@@ -15,7 +15,7 @@
 					</router-link>
 				</li>
 				<li class="active">
-					<strong><i class="fa fa-plus"></i> 添加用户</strong>
+					<strong><i class="fa fa-edit"></i> 修改用户</strong>
 				</li>
 			</ol>
 		</div>
@@ -25,7 +25,7 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>用户管理</h5>
+						<h5>修改用户</h5>
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal" @submit.prevent>
@@ -138,11 +138,13 @@
 				errors:{},
 				permissions:{},
 				roles:{},
+				user_id:0,
 				loading: true,
 				dialogVisible:true
 			}
 		},
 		created () {
+			this.user_id = this.$route.params.id
 			this.fetchData()
 		},
 		methods: {
@@ -169,7 +171,7 @@
 			},
 			fetchData() {
 				var _this = this
-				this.$http.get('/api/user/create')
+				this.$http.get('/api/user/'+ this.user_id +'/edit')
 					.then(response => {
 						this.permissions = response.data.permissions
 						this.roles = response.data.roles

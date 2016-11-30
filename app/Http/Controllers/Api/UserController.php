@@ -63,14 +63,16 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改用户视图数据
+     * @author 晚黎
+     * @date   2016-11-30
+     * @param  [type]     $id [description]
+     * @return [type]         [description]
      */
     public function edit($id)
     {
-        //
+        $responseData = $this->user->editView($id);
+        return response()->json($responseData);
     }
 
     /**

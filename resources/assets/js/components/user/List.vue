@@ -72,7 +72,7 @@
                               <router-link :to="{ name: 'show-role', params: { id: row.id }}">
                                 <el-button type="info" size="mini" icon="search">查看</el-button>
                               </router-link>
-                              <router-link :to="{ name: 'edit-role', params: { id: row.id }}">
+                              <router-link :to="{ name: 'edit-user', params: { id: row.id }}">
                                 <el-button type="warning" size="mini" icon="edit">编辑</el-button>
                               </router-link>
                               <el-button type="danger" size="mini" icon="delete" @click="destroyRole(row)">删除</el-button>
