@@ -1,5 +1,9 @@
 # iDashboard - Laravel5.3基本的权限管理系统
 
+当前分之为Laravel版本~，[Vue2.0版本戳这里](https://github.com/lanceWan/iDashboard/tree/vue-2.0) ,Vue2.0只完成了部分，用户管理，权限管理以及角色管理，其他的都还没有做。重复的增删改查不想写了，代码共参考，后期会出Laravel5.3和Vue2.0的视频教程。请关注博客！
+
+----
+
 基于Laravel5.3的后台管理系统，实现最基本的后台框架：权限、角色、菜单、用户、日志功能，后台主题是用的 [INSPINIA - Responsive Admin Theme](https://wrapbootstrap.com/theme/inspinia-responsive-admin-theme-WB0R5L90S) 主题，本人代码完全开源，至于主题只供学习交流。如需商业应用请自行购买授权！
 
 
@@ -16,7 +20,7 @@
 *  `Media Manager` 资源管理(本地和七牛)
 * 在线 IM 聊天
 * **基于 `iDashboard` 的个人博客计划**
-* **基于 `iDashboard` 代码将css、js用 [Laravel Elixir](https://laravel.com/docs/5.3/elixir) 管理。Blade视图与 Vuejs2.0 结合管理**
+* ~~**基于 `iDashboard` 代码将css、js用 [Laravel Elixir](https://laravel.com/docs/5.3/elixir) 管理。Blade视图与 Vuejs2.0 结合管理**（暂停开发，出视频教程）~~
 
 OK,这是目前想要完善的地方，可能冒出其他的灵感。待续...
 
