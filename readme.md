@@ -1,6 +1,6 @@
 # iDashboard - Laravel5.3基本的权限管理系统
 
-当前分之为Laravel版本~，[Vue2.0版本戳这里](https://github.com/lanceWan/iDashboard/tree/vue-2.0) ,Vue2.0只完成了部分，用户管理，权限管理以及角色管理，其他的都还没有做。重复的增删改查不想写了，代码共参考，近期会出Laravel5.3和Vue2.0的视频教程。请关注博客！
+**当前分支为Laravel版本~，[Vue2.0版本戳这里](https://github.com/lanceWan/iDashboard/tree/vue-2.0) ,Vue2.0只完成了部分，用户管理，权限管理以及角色管理，其他的都还没有做。本人时间有限，重复的增删改查不想写了，代码共参考，近期会出Laravel5.3和Vue2.0的视频教程。请关注博客！[http://iwanli.me](http://iwanli.me)**
 
 ----
 
