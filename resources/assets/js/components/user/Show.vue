@@ -15,7 +15,7 @@
 					</router-link>
 				</li>
 				<li class="active">
-					<strong><i class="fa fa-edit"></i> 修改用户</strong>
+					<strong><i class="fa fa-edit"></i> 用户信息</strong>
 				</li>
 			</ol>
 		</div>
@@ -25,44 +25,37 @@
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>修改用户</h5>
+						<h5>用户信息</h5>
 					</div>
 					<div class="ibox-content">
 						<form class="form-horizontal" @submit.prevent>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">用户名称</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.name" placeholder="用户名称">
-									<span v-if="errors.name" class="help-block m-b-none text-danger">{{ errors.name + '' }}</span>
+									<p class="form-control-static">{{formData.name}}</p>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">用户名</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.username" placeholder="用户名">
-									<span v-if="errors.username" class="help-block m-b-none text-danger">{{ errors.username + '' }}</span>
+									<p class="form-control-static">{{formData.username}}</p>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">邮箱</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" v-model="formData.email" placeholder="邮箱">
-									<span v-if="errors.email" class="help-block m-b-none text-danger">{{ errors.email + '' }}</span>
+									<p class="form-control-static">{{formData.email}}</p>
 								</div>
 							</div>
 							<div class="hr-line-dashed"></div>
 	            <div class="form-group">
 	              <label class="col-sm-2 control-label">角色</label>
 	              <div class="col-sm-10">
-	                <template>
-		                <label class="checkbox-inline">
-										  <el-checkbox-group v-model="formData.role">
-										    <el-checkbox :label="role.id + ''" v-for="role of roles">{{role.name}}</el-checkbox>
-										  </el-checkbox-group>
+		                <label class="checkbox-inline" v-for="role of formData.roles">
+									  	<span>{{role}}</span>
 									  </label>
-									</template>
 	              </div>
 	            </div>
 							<div class="hr-line-dashed"></div>
@@ -70,9 +63,6 @@
 	              <label class="col-sm-2 control-label">分配额外权限</label>
 	              <div class="col-sm-10">
 	                <div class="ibox float-e-margins">
-		                <div class="alert alert-warning">
-	                    <strong>注意！</strong> 当某个角色的用户需要额外权限时添加。
-	                  </div>
 	                  <table class="table table-bordered" v-loading="loading" element-loading-text="拼命加载中...">
 	                    <thead>
 	                      <tr>
@@ -81,14 +71,12 @@
 	                      </tr>
 	                    </thead>
 	                    <tbody>
-	                      <template v-for="(permission,key) in permissions">
+	                      <template v-for="(permission,key) in formData.permissions">
 												  <tr>
 												  	<td>{{key}}</td>
 												  	<td>
 												  		<div class="col-md-4" v-for="item of permission">
-				                     		<el-checkbox-group v-model="formData.permission">
-															    <el-checkbox :label="item.id+''">{{item.name}}</el-checkbox>
-															  </el-checkbox-group>
+			                     			<span>{{item.name}}</span>
 			                      	</div>
 												  	</td>
 												  </tr>
@@ -104,7 +92,6 @@
 									<router-link :to="{name:'user'}" tag="span">
 									<a class="btn btn-white"><i class="fa fa-reply"></i> 返回</a>
 									</router-link>
-									<button class="btn btn-primary" @click.prevent="EditUser" type="button"><i class="fa fa-paper-plane-o"></i> 提交</button>
 								</div>
 							</div>
 						</form>
@@ -123,12 +110,9 @@
 					name:'',
 					username:'',
 					email:'',
-					permission:[],
-					role:[]
+					permissions:{},
+					roles:{},
 				},
-				errors:{},
-				permissions:{},
-				roles:{},
 				user_id:0,
 				loading: true,
 			}
@@ -138,33 +122,10 @@
 			this.fetchData()
 		},
 		methods: {
-			EditUser() {
-				this.$http.put('api/user/'+ this.user_id,this.formData)
-					.then(response => {
-						this.messgeClose(response.data.status,response.data.msg,this.$router)
-					},response =>  {
-						if (response.status == 422) {
-							this.errors = {}
-							this.errors = response.data
-						}
-					})
-			},
-			messgeClose(status,msg,router) {
-				this.$message({
-					showClose: true,
-					message: msg,
-					type: status ? 'info':'error',
-					onClose: function () {
-						router.push({name: 'user'})
-					}
-				})
-			},
 			fetchData() {
 				var _this = this
-				this.$http.get('/api/user/'+ this.user_id +'/edit')
+				this.$http.get('/api/user/'+ this.user_id)
 					.then(response => {
-						this.permissions = response.data.permissions
-						this.roles = response.data.roles
 						this.formData = response.data.user
 						this.loading = false
 					},response => {

@@ -1,6 +1,3 @@
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
-const User = { template: '<div>user</div>' }
 import Example from '../components/Example'
 import PermissionList from '../components/permission/List'
 import PermissionCreate from '../components/permission/Create'
@@ -14,6 +11,10 @@ import RoleShow from '../components/role/Show'
 import UserList from '../components/user/List'
 import UserCreate from '../components/user/Create'
 import UserEdit from '../components/user/Edit'
+import UserShow from '../components/user/Show'
+
+const Log = { template: '<div>日志列表</div>' }
+const Menu = { template: '<div>菜单列表</div>' }
 
 const routes = [
   { path: '/dash', component: Example },
@@ -27,6 +28,9 @@ const routes = [
   { path: '/user', component: UserList, name: 'user' },
   { path: '/user/create', component: UserCreate, name: 'create-user' },
   { path: '/user/:id/edit', component: UserEdit, name: 'edit-user' },
+  { path: '/user/:id', component: UserShow, name: 'show-user' },
+  { path: '/log', component: Log},
+  { path: '/menu', component: Menu},
   { path: '*', redirect: '/dash' }
 ]
 

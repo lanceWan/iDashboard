@@ -69,13 +69,14 @@
                             label="操作"
                             min-width="150">
                             <span>
-                              <router-link :to="{ name: 'show-role', params: { id: row.id }}">
+                              <router-link :to="{ name: 'show-user', params: { id: row.id }}">
                                 <el-button type="info" size="mini" icon="search">查看</el-button>
                               </router-link>
+                              <el-button type="success" size="mini" icon="upload" @click="resetPassword(row)">重置</el-button>
                               <router-link :to="{ name: 'edit-user', params: { id: row.id }}">
                                 <el-button type="warning" size="mini" icon="edit">编辑</el-button>
                               </router-link>
-                              <el-button type="danger" size="mini" icon="delete" @click="destroyRole(row)">删除</el-button>
+                              <el-button type="danger" size="mini" icon="delete" @click="destroyUser(row)">删除</el-button>
                             </span>
                           </el-table-column>
                         </el-table>
@@ -160,7 +161,29 @@
 	            });
 	          })
 	      })
-	    }
+	    },
+      resetPassword(row) {
+        this.$confirm('是否重置用户密码？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.get('/api/user/'+ row.id +'/reset')
+            .then((response) => {
+              this.$message({
+                showClose: true,
+                type: 'success',
+                message: response.data.msg
+              });
+            },(response) => {
+              this.$message({
+                showClose: true,
+                type: 'error',
+                message: response.data.msg
+              });
+            })
+        })
+      }
 	  }
 	}
 </script>
