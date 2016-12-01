@@ -28,9 +28,10 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 创建用户视图
+     * @author 晚黎
+     * @date   2016-11-30T14:54:28+0800
+     * @return [type]                   [description]
      */
     public function create()
     {
@@ -59,7 +60,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $responseData = $this->user->showUser($id);
+        return response()->json($responseData);
     }
 
     /**
@@ -76,15 +78,17 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 修改用户
+     * @author 晚黎
+     * @date   2016-11-30T14:54:48+0800
+     * @param  Request                  $request [description]
+     * @param  [type]                   $id      [description]
+     * @return [type]                            [description]
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $responseData = $this->user->updateUser($request->all(),$id);
+        return response()->json($responseData); 
     }
 
     /**
@@ -95,6 +99,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $responseData = $this->user->destroyUser($id);
+        return response()->json($responseData); 
+    }
+    /**
+     * 修改密码
+     * @author 晚黎
+     * @date   2016-11-30T15:59:47+0800
+     * @param  [type]                   $id [description]
+     * @return [type]                       [description]
+     */
+    public function resetPassword($id)
+    {
+        $responseData = $this->user->resetUserPassword($id);
+        return response()->json($responseData); 
     }
 }

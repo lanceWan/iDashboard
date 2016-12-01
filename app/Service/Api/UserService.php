@@ -126,8 +126,28 @@ class UserService
 		];
 		$user = $this->findUserById($id);
 		if ($user) {
+			$user = $user->toArray();
 			$responseData['status'] = true;
 			$responseData['msg'] = '获取成功';
+
+			if ($user['roles']) {
+				$roleIds = [];
+				foreach ($user['roles'] as $v) {
+					$roleIds[] = strval($v['id']);
+				}
+				$user['role'] = $roleIds;
+				unset($user['roles']);
+			}
+			if ($user['user_permissions']) {
+				foreach ($user['user_permissions'] as $v) {
+					$ids[] = strval($v['id']);
+				}
+				$user['permission'] = $ids;
+			}else{
+				$user['permission'] = [];
+			}
+			unset($user['user_permissions']);
+
 			$responseData['user'] = $user;
 			$responseData['permissions'] = $this->getAllPermissionList();
 			$responseData['roles'] = $this->getAllRoles();
@@ -159,9 +179,14 @@ class UserService
 	 */
 	public function updateUser($attributes,$id)
 	{
-		// 防止用户恶意修改表单id，如果id不一致直接跳转500
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.user.edit_error')
+		];
+		// 防止用户恶意修改表单id
 		if ($attributes['id'] != $id) {
-			abort(500,trans('admin/errors.user_error'));
+			$responseData['msg'] = trans('admin/errors.user_error');
+			return $responseData;
 		}
 		try {
 			$result = $this->user->update($attributes,$id);
@@ -179,13 +204,15 @@ class UserService
 					$result->userPermissions()->sync([]);
 				}
 			}
-			flash_info($result,trans('admin/alert.user.edit_success'),trans('admin/alert.user.edit_error'));
-			return $result;
+			if ($result) {
+				$responseData['status'] = true;
+				$responseData['msg'] = trans('admin/alert.user.edit_success');
+			}
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
+		return $responseData;
 	}
 	/**
 	 * 用户暂不做状态管理，直接删除
@@ -196,16 +223,21 @@ class UserService
 	 */
 	public function destroyUser($id)
 	{
+		$responseData = [
+			'status' => false,
+			'msg' => trans('admin/alert.user.destroy_error')
+		];
 		try {
 			$result = $this->user->delete($id);
-			flash_info($result,trans('admin/alert.user.destroy_success'),trans('admin/alert.user.destroy_error'));
-			return $result;
+			if ($result) {
+				$responseData['status'] = true;
+				$responseData['msg'] = trans('admin/alert.user.destroy_success');
+			}
 		} catch (Exception $e) {
 			// 错误信息发送邮件
 			$this->sendSystemErrorMail(env('MAIL_SYSTEMERROR',''),$e);
-			return false;
 		}
-		
+		return $responseData;
 	}
 	/**
 	 * 重置用户密码
@@ -225,6 +257,40 @@ class UserService
 			$responseData['status'] = true;
 			$responseData['msg'] 	= trans('admin/alert.user.reset_success');
 		}
+		return $responseData;
+	}
+
+	public function showUser($id)
+	{
+		$responseData = [
+			'status'=> false,
+			'msg' 	=> '用户找不到',
+		];
+		$user = $this->findUserById($id);
+		if ($user) {
+			$user = $user->toArray();
+
+			if ($user['roles']) {
+				$roles = [];
+				foreach ($user['roles'] as $v) {
+					$roles[] = $v['name'];
+				}
+				$user['roles'] = $roles;
+			}
+
+			if ($user['user_permissions']) {
+				$permissions = [];
+				foreach ($user['user_permissions'] as $v) {
+					array_set($permissions, $v['slug'], ['name' => $v['name']]);
+				}
+				$user['permissions'] = $permissions;
+			}
+
+			$responseData['status'] = true;
+			$responseData['msg'] = '获取成功';
+			$responseData['user'] = $user;
+		}
+
 		return $responseData;
 	}
 }
