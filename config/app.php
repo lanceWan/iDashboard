@@ -167,7 +167,6 @@ return [
          * Package Service Providers...
          */
 
-        Mews\Captcha\CaptchaServiceProvider::class,//验证码
         GeniusTS\Roles\RolesServiceProvider::class,//权限包
         Prettus\Repository\Providers\RepositoryServiceProvider::class,//l5-repository
         Laracasts\Flash\FlashServiceProvider::class, // flash 通知
