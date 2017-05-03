@@ -1,3 +1,11 @@
+function getBaseUrl() {
+    var currentUrl = window.location.toString().split('/');
+    var baseUrl = currentUrl[0];
+    for (i = 1; i < currentUrl.length - 2; ++i) {
+        baseUrl += '/' + currentUrl[i];
+    }
+    return baseUrl;
+}
 var TableDatatablesAjax = function() {
   var datatableAjax = function(){
     dt = $('.dataTablesAjax');
@@ -10,7 +18,7 @@ var TableDatatablesAjax = function() {
         "regex": true
       },
       "ajax": {
-        'url' : '/admin/user/ajaxIndex',
+        'url' : getBaseUrl() + '/admin/user/ajaxIndex',
       },
       "pagingType": "full_numbers",
       "orderCellsTop": true,
@@ -45,17 +53,17 @@ var TableDatatablesAjax = function() {
         	"name": "username",
         	"orderable" : false,
         },
-        { 
+        {
         	"data": "created_at",
         	"name": "created_at",
         	"orderable" : true,
         },
-        { 
+        {
         	"data": "updated_at",
         	"name": "updated_at",
         	"orderable" : true,
         },
-        { 
+        {
           "data": "actionButton",
           "name": "actionButton",
           "type": "html",
@@ -66,10 +74,10 @@ var TableDatatablesAjax = function() {
         ajax_datatable.$('.tooltips').tooltip( {
           placement : 'top',
           html : true
-        });  
+        });
       },
       "language": {
-        url: '/admin/i18n'
+        url: getBaseUrl() + '/admin/i18n'
       }
     });
   };
