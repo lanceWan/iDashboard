@@ -103,7 +103,7 @@ class AddAdminModular extends Command
      */
     private function writeRepository(){
         $this->call('make:repository',[
-            'name'=>$this->name.'Repository'
+            'name'=>$this->name
         ]);
     }
 
